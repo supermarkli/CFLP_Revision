@@ -1,0 +1,10 @@
+2025-07-09 16:32:09 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLPV2\logs\20250709_163209.log
+2025-07-09 16:32:09 - INFO - [main.py:121] - 实验模式: Centralized
+2025-07-09 16:32:09 - INFO - [main.py:125] - 模型初始化完成: RF
+2025-07-09 16:32:09 - INFO - [main.py:130] - 加载完整数据集
+2025-07-09 16:32:09 - INFO - [main.py:113] - 开始训练 RF 模型
+2025-07-09 16:32:47 - INFO - [ml_models.py:270] - RF 训练完成，树数: 100
+2025-07-09 16:32:47 - INFO - [ml_trainer.py:33] - 最终准确率: 0.970
+2025-07-09 16:32:47 - INFO - [ml_trainer.py:34] - 最终AUC: 0.999
+2025-07-09 16:32:47 - INFO - [main.py:115] - Centralized训练完成
+2025-07-09 16:32:47 - INFO - [main.py:146] - 训练总耗时: 37.72 秒
