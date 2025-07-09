@@ -1,0 +1,54 @@
+batch_size: 100
+converge_threshold: 0.001
+data:
+  clients:
+  - data/client1/
+  - data/client2/
+  - data/client3/
+  complete: data/complete/
+epochs: 100
+eval_batch_size: 128
+federated:
+  aggregation: fedavg
+  local_epochs: 1
+  num_clients: 3
+  rounds: 100
+learning_rate: 0.001
+log_dir: logs/
+mode: Federated
+model:
+  CNN:
+    dim: 1024
+    in_features: 1
+    num_classes: 10
+  MLP:
+    activation: relu
+    hidden_dims:
+    - 128
+    - 64
+    input_dim: 784
+    num_classes: 10
+  ml:
+    LR:
+      C: 1.0
+      class_weight: balanced
+      max_iter: 5000
+      tol: 0.001
+    RF:
+      class_weight: balanced
+      max_depth: null
+      max_features: sqrt
+      min_samples_leaf: 1
+      min_samples_split: 2
+      n_estimators: 100
+    SVC:
+      C: 1.0
+      class_weight: balanced
+      max_iter: 5000
+      tol: 0.001
+    KNN:
+      algorithm: auto
+      n_neighbors: 5
+      weights: uniform
+  type: CNN
+seed: 42
