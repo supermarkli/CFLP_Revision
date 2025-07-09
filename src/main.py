@@ -84,6 +84,7 @@ def get_trainer(model, config):
 # ========== 数据加载区 ==========
 def load_complete_data():
     """加载完整数据集，返回(train_data, test_data)"""
+    logger.info("加载完整数据集")
     config = load_config(os.path.join(PROJECT_ROOT, 'src', 'default.yaml'))
     data_dir = os.path.join(PROJECT_ROOT, config['data']['complete'])
     train_npz = np.load(os.path.join(data_dir, 'mnist_train.npz'))
@@ -93,14 +94,40 @@ def load_complete_data():
     return train_data, test_data
 
 def load_federated_data():
-    """加载联邦学习各客户端数据，返回([client1_data, ...], [client1_test, ...])"""
+    """根据配置加载联邦学习各客户端数据（IID或Non-IID）"""
     config = load_config(os.path.join(PROJECT_ROOT, 'src', 'default.yaml'))
+    
+    # 根据配置确定数据分布类型
+    dist_type = config['data'].get('federated_dist', 'iid')
+    logger.info(f"为联邦学习加载数据，分布类型: {dist_type}")
+
+    if dist_type == 'iid':
+        train_file = 'mnist_train.npz'
+        test_file = 'mnist_test.npz'
+    elif dist_type == 'noniid_label_skew':
+        train_file = 'mnist_train_noniid_label_skew.npz'
+        test_file = 'mnist_test_noniid_label_skew.npz'
+    elif dist_type == 'noniid_quantity_skew':
+        train_file = 'mnist_train_noniid_quantity_skew.npz'
+        test_file = 'mnist_test_noniid_quantity_skew.npz'
+    else:
+        logger.error(f"不支持的数据分布类型: {dist_type}")
+        raise ValueError(f"不支持的数据分布类型: {dist_type}")
+
     client_dirs = [os.path.join(PROJECT_ROOT, d) for d in config['data']['clients']]
     clients_data = []
     clients_test_data = []
     for client_dir in client_dirs:
-        train_npz = np.load(os.path.join(client_dir, 'mnist_train.npz'))
-        test_npz = np.load(os.path.join(client_dir, 'mnist_test.npz'))
+        train_path = os.path.join(client_dir, train_file)
+        test_path = os.path.join(client_dir, test_file)
+
+        if not os.path.exists(train_path) or not os.path.exists(test_path):
+            logger.error(f"数据文件不存在: {train_path} 或 {test_path}")
+            logger.error("请先运行 'python src/data_process/generate_mnist_data.py' 生成所需的数据文件。")
+            sys.exit(1)
+
+        train_npz = np.load(train_path)
+        test_npz = np.load(test_path)
         client_data = SimpleNamespace(x=train_npz['X_train'], y=train_npz['y_train'])
         client_test = SimpleNamespace(x=test_npz['X_test'], y=test_npz['y_test'])
         clients_data.append(client_data)
@@ -127,7 +154,6 @@ def main():
 
     if mode == 'Centralized':
         train_data, test_data = load_complete_data()
-        logger.info("加载完整数据集")
         start_time = time.time()  # 计时开始
         run_training(model, train_data, test_data, config, mode)
     elif mode == 'Federated':
@@ -135,7 +161,7 @@ def main():
             logger.error("传统机器学习模型暂不支持联邦学习模式")
             return
         clients_data, clients_test_data = load_federated_data()
-        logger.info("加载联邦学习客户端数据")
+        dist_type = config['data'].get('federated_dist', 'iid')
         start_time = time.time()  # 计时开始
         run_training(model, clients_data, clients_test_data, config, mode)
     else:

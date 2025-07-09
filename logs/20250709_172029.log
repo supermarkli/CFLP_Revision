@@ -1,0 +1,23 @@
+2025-07-09 17:20:29 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250709_172029.log
+2025-07-09 17:20:29 - INFO - [main.py:145] - 实验模式: Federated
+2025-07-09 17:20:29 - INFO - [main.py:149] - 模型初始化完成: CNN
+2025-07-09 17:20:29 - INFO - [main.py:102] - 为联邦学习加载数据，分布类型: noniid_label_skew
+2025-07-09 17:20:30 - INFO - [main.py:137] - 开始训练 CNN 模型
+2025-07-09 17:20:46 - INFO - [federated_trainer.py:75] - [Federated][Round 1/100] 客户端平均准确率: 0.989, 平均AUC: nan 
+2025-07-09 17:21:01 - INFO - [federated_trainer.py:75] - [Federated][Round 2/100] 客户端平均准确率: 0.994, 平均AUC: nan 
+2025-07-09 17:21:15 - INFO - [federated_trainer.py:75] - [Federated][Round 3/100] 客户端平均准确率: 0.993, 平均AUC: nan 
+2025-07-09 17:21:30 - INFO - [federated_trainer.py:75] - [Federated][Round 4/100] 客户端平均准确率: 0.996, 平均AUC: nan 
+2025-07-09 17:21:45 - INFO - [federated_trainer.py:75] - [Federated][Round 5/100] 客户端平均准确率: 0.992, 平均AUC: nan 
+2025-07-09 17:22:00 - INFO - [federated_trainer.py:75] - [Federated][Round 6/100] 客户端平均准确率: 0.995, 平均AUC: nan 
+2025-07-09 17:22:15 - INFO - [federated_trainer.py:75] - [Federated][Round 7/100] 客户端平均准确率: 0.996, 平均AUC: nan 
+2025-07-09 17:22:30 - INFO - [federated_trainer.py:75] - [Federated][Round 8/100] 客户端平均准确率: 0.996, 平均AUC: nan 
+2025-07-09 17:22:45 - INFO - [federated_trainer.py:75] - [Federated][Round 9/100] 客户端平均准确率: 0.995, 平均AUC: nan 
+2025-07-09 17:23:00 - INFO - [federated_trainer.py:75] - [Federated][Round 10/100] 客户端平均准确率: 0.996, 平均AUC: nan 
+2025-07-09 17:23:16 - INFO - [federated_trainer.py:75] - [Federated][Round 11/100] 客户端平均准确率: 0.997, 平均AUC: nan 
+2025-07-09 17:23:32 - INFO - [federated_trainer.py:75] - [Federated][Round 12/100] 客户端平均准确率: 0.997, 平均AUC: nan 
+2025-07-09 17:23:48 - INFO - [federated_trainer.py:75] - [Federated][Round 13/100] 客户端平均准确率: 0.997, 平均AUC: nan 
+2025-07-09 17:23:48 - INFO - [federated_trainer.py:86] - [Federated] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练
+2025-07-09 17:23:48 - INFO - [federated_trainer.py:95] - 最终准确率: 0.997
+2025-07-09 17:23:48 - INFO - [federated_trainer.py:96] - 最终AUC: nan
+2025-07-09 17:23:48 - INFO - [main.py:139] - Federated训练完成
+2025-07-09 17:23:48 - INFO - [main.py:169] - 训练总耗时: 198.20 秒

@@ -1,54 +1,100 @@
-batch_size: 100
-converge_threshold: 0.001
-data:
-  clients:
-  - data/client1/
-  - data/client2/
-  - data/client3/
-  complete: data/complete/
-epochs: 100
-eval_batch_size: 128
-federated:
-  aggregation: fedavg
-  local_epochs: 1
-  num_clients: 3
-  rounds: 100
-learning_rate: 0.001
-log_dir: logs/
+# ==================================
+#         General Settings
+# ==================================
+# 'Centralized' or 'Federated'
 mode: Federated
+seed: 42
+
+# ==================================
+#          Data Settings
+# ==================================
+data:
+  # Path for complete data used in Centralized mode
+  complete: data/complete/
+  
+  # List of client data directories for Federated mode
+  clients:
+    - data/client1/
+    - data/client2/
+    - data/client3/
+  
+  # Data distribution type for Federated Learning
+  # Options: 'iid', 'noniid_label_skew', 'noniid_quantity_skew'
+  federated_dist: noniid_quantity_skew
+
+# ==================================
+#         Training Settings
+# ==================================
+training:
+  # Epochs for Centralized training
+  epochs: 100
+  learning_rate: 0.001
+  batch_size: 100
+  eval_batch_size: 128
+  converge_threshold: 0.001
+
+# ==================================
+#    Federated Learning Settings
+# ==================================
+federated:
+  # Total communication rounds
+  rounds: 100
+  # Total number of clients
+  num_clients: 3
+  # Local training epochs on clients per round
+  local_epochs: 1
+  # Aggregation algorithm
+  aggregation: fedavg
+
+# ==================================
+#         Model Settings
+# ==================================
 model:
+  # Active model type. Options: CNN, MLP, KNN, RF, SVC, LR
+  type: CNN
+  
+  # --- Deep Learning Models ---
   CNN:
-    dim: 1024
     in_features: 1
+    dim: 1024
     num_classes: 10
+  
   MLP:
-    activation: relu
-    hidden_dims:
-    - 128
-    - 64
     input_dim: 784
+    hidden_dims:
+      - 128
+      - 64
     num_classes: 10
+    activation: relu
+    
+  # --- Traditional ML Models ---
   ml:
-    LR:
-      C: 1.0
-      class_weight: balanced
-      max_iter: 5000
-      tol: 0.001
-    RF:
-      class_weight: balanced
-      max_depth: null
-      max_features: sqrt
-      min_samples_leaf: 1
-      min_samples_split: 2
-      n_estimators: 100
-    SVC:
-      C: 1.0
-      class_weight: balanced
-      max_iter: 5000
-      tol: 0.001
     KNN:
-      algorithm: auto
       n_neighbors: 5
       weights: uniform
-  type: CNN
-seed: 42
+      algorithm: auto
+      
+    LR:
+      C: 1.0
+      max_iter: 5000
+      tol: 0.001
+      class_weight: balanced
+      
+    RF:
+      n_estimators: 100
+      max_depth: null
+      min_samples_split: 2
+      min_samples_leaf: 1
+      max_features: sqrt
+      class_weight: balanced
+      
+    SVC:
+      C: 1.0
+      max_iter: 5000
+      tol: 0.001
+      class_weight: balanced
+
+# ==================================
+#          Path Settings
+# ==================================
+log_dir: logs/
