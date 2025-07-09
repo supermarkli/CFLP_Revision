@@ -22,14 +22,14 @@ class CentralizedTrainer(BaseTrainer):
         train_dataset = TensorDataset(x_train, y_train)
         train_loader = DataLoader(
             train_dataset,
-            batch_size=self.config['batch_size'],
+            batch_size=self.config['training']['batch_size'],
             shuffle=True
         )
         
-        optimizer = optim.Adam(self.model.parameters(), lr=self.config['learning_rate'])
+        optimizer = optim.Adam(self.model.parameters(), lr=self.config['training']['learning_rate'])
         criterion = torch.nn.CrossEntropyLoss()
-        epochs = self.config['epochs']
-        threshold = self.config.get('converge_threshold', 0.001)
+        epochs = self.config['training']['epochs']
+        threshold = self.config['training'].get('converge_threshold', 0.001)
         
         self.model.train()
         acc_history = []
@@ -78,7 +78,7 @@ class CentralizedTrainer(BaseTrainer):
         test_dataset = torch.utils.data.TensorDataset(x_test, y_test)
         test_loader = torch.utils.data.DataLoader(
             test_dataset, 
-            batch_size=self.config.get('eval_batch_size', 128),
+            batch_size=self.config['training'].get('eval_batch_size', 128),
             shuffle=False
         )
         total_loss = 0

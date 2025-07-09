@@ -53,18 +53,26 @@ class FederatedTrainer(BaseTrainer):
             # 聚合模型
             self.server.aggregate(client_params_list)
             
-            # 计算平均指标
-            avg_acc = sum(client_accs) / len(client_accs)
-            avg_auc = sum(client_aucs) / len(client_aucs)
-            avg_loss = sum(client_losses) / len(client_losses)
+            # 安全地计算平均指标
+            # 过滤掉None值，避免计算错误
+            valid_aucs = [auc for auc in client_aucs if auc is not None]
+            
+            avg_acc = sum(client_accs) / len(client_accs) if client_accs else 0
+            avg_auc = sum(valid_aucs) / len(valid_aucs) if valid_aucs else None
+            avg_loss = sum(client_losses) / len(client_losses) if client_losses else 0
             
             acc_history.append(avg_acc)
-            auc_history.append(avg_auc)
+            if avg_auc is not None:
+                auc_history.append(avg_auc)
             loss_history.append(avg_loss)
             
-            logger.info(
-                f"[Federated][Round {r+1}/{rounds}] 客户端平均准确率: {format(int(avg_acc * 1000) / 1000, '.3f')}, 平均AUC: {'计算失败' if avg_auc is None else format(int(avg_auc * 1000) / 1000, '.3f')}, 平均损失: {format(int(avg_loss * 1000) / 1000, '.3f')}"
+            log_message = (
+                f"[Federated][Round {r+1}/{rounds}] "
+                f"客户端平均准确率: {format(int(avg_acc * 1000) / 1000, '.3f')}, "
+                f"平均AUC: {format(int(avg_auc * 1000) / 1000, '.3f') if avg_auc is not None else '计算失败'} "
+                f"平均损失: {format(int(avg_loss * 1000) / 1000, '.3f')}"
             )
+            logger.info(log_message)
             
             # 保存最佳模型
             if avg_acc > self.best_acc:
