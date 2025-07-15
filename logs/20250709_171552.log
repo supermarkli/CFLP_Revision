@@ -1,6 +1,0 @@
-2025-07-09 17:15:52 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250709_171552.log
-2025-07-09 17:15:52 - INFO - [main.py:144] - 实验模式: Federated
-2025-07-09 17:15:52 - INFO - [main.py:148] - 模型初始化完成: CNN
-2025-07-09 17:15:52 - INFO - [main.py:101] - 为联邦学习加载数据，分布类型: noniid_label_skew
-2025-07-09 17:15:52 - INFO - [main.py:162] - 加载联邦学习客户端数据 (分布: noniid_label_skew)
-2025-07-09 17:15:52 - INFO - [main.py:136] - 开始训练 CNN 模型

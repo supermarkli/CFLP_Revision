@@ -20,7 +20,7 @@ data:
   
   # Data distribution type for Federated Learning
   # Options: 'iid', 'noniid_label_skew', 'noniid_quantity_skew'
-  federated_dist: noniid_quantity_skew
+  federated_dist: iid
 
 # ==================================
 #         Training Settings

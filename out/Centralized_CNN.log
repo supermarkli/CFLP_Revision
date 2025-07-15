@@ -1,20 +1,20 @@
-2025-07-09 16:28:13 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLPV2\logs\20250709_162813.log
-2025-07-09 16:28:13 - INFO - [main.py:121] - 实验模式: Centralized
-2025-07-09 16:28:13 - INFO - [main.py:125] - 模型初始化完成: CNN
-2025-07-09 16:28:13 - INFO - [main.py:130] - 加载完整数据集
-2025-07-09 16:28:13 - INFO - [main.py:113] - 开始训练 CNN 模型
-2025-07-09 16:28:30 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 1/100] 准确率: 0.988  AUC: 0.999 损失: 0.034
-2025-07-09 16:28:46 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 2/100] 准确率: 0.991  AUC: 0.999 损失: 0.028
-2025-07-09 16:29:01 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 3/100] 准确率: 0.990  AUC: 0.999 损失: 0.030
-2025-07-09 16:29:17 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 4/100] 准确率: 0.990  AUC: 0.999 损失: 0.028
-2025-07-09 16:29:33 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 5/100] 准确率: 0.990  AUC: 0.999 损失: 0.033
-2025-07-09 16:29:49 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 6/100] 准确率: 0.992  AUC: 0.999 损失: 0.026
-2025-07-09 16:30:04 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 7/100] 准确率: 0.991  AUC: 0.999 损失: 0.028
-2025-07-09 16:30:20 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 8/100] 准确率: 0.990  AUC: 0.999 损失: 0.031
-2025-07-09 16:30:35 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 9/100] 准确率: 0.991  AUC: 0.999 损失: 0.035
-2025-07-09 16:30:51 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 10/100] 准确率: 0.990  AUC: 0.999 损失: 0.047
-2025-07-09 16:30:51 - INFO - [centralized_trainer.py:63] - [Centralized] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练。
-2025-07-09 16:30:51 - INFO - [centralized_trainer.py:68] - 最终准确率: 0.992
-2025-07-09 16:30:51 - INFO - [centralized_trainer.py:69] - 最终AUC: 0.999
-2025-07-09 16:30:51 - INFO - [main.py:115] - Centralized训练完成
-2025-07-09 16:30:51 - INFO - [main.py:146] - 训练总耗时: 157.91 秒
+2025-07-15 10:37:52 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_103752.log
+2025-07-15 10:37:52 - INFO - [main.py:148] - 实验模式: Centralized
+2025-07-15 10:37:52 - INFO - [main.py:152] - 模型初始化完成: CNN
+2025-07-15 10:37:52 - INFO - [main.py:87] - 加载完整数据集
+2025-07-15 10:37:53 - INFO - [main.py:140] - 开始训练 CNN 模型
+2025-07-15 10:38:11 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 1/100] 准确率: 0.988  AUC: 0.999 损失: 0.034
+2025-07-15 10:38:29 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 2/100] 准确率: 0.991  AUC: 0.999 损失: 0.028
+2025-07-15 10:38:47 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 3/100] 准确率: 0.990  AUC: 0.999 损失: 0.030
+2025-07-15 10:39:03 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 4/100] 准确率: 0.990  AUC: 0.999 损失: 0.028
+2025-07-15 10:39:17 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 5/100] 准确率: 0.990  AUC: 0.999 损失: 0.033
+2025-07-15 10:39:32 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 6/100] 准确率: 0.992  AUC: 0.999 损失: 0.026
+2025-07-15 10:39:47 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 7/100] 准确率: 0.991  AUC: 0.999 损失: 0.028
+2025-07-15 10:40:01 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 8/100] 准确率: 0.990  AUC: 0.999 损失: 0.031
+2025-07-15 10:40:16 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 9/100] 准确率: 0.991  AUC: 0.999 损失: 0.035
+2025-07-15 10:40:30 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 10/100] 准确率: 0.990  AUC: 0.999 损失: 0.047
+2025-07-15 10:40:30 - INFO - [centralized_trainer.py:63] - [Centralized] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练。
+2025-07-15 10:40:30 - INFO - [centralized_trainer.py:68] - 最终准确率: 0.992
+2025-07-15 10:40:30 - INFO - [centralized_trainer.py:69] - 最终AUC: 0.999
+2025-07-15 10:40:30 - INFO - [main.py:142] - Centralized训练完成
+2025-07-15 10:40:30 - INFO - [main.py:172] - 训练总耗时: 157.63 秒
