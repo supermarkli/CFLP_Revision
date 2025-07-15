@@ -1,10 +1,10 @@
-2025-07-09 16:39:33 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLPV2\logs\20250709_163933.log
-2025-07-09 16:39:33 - INFO - [main.py:121] - 实验模式: Centralized
-2025-07-09 16:39:33 - INFO - [main.py:125] - 模型初始化完成: LR
-2025-07-09 16:39:34 - INFO - [main.py:130] - 加载完整数据集
-2025-07-09 16:39:34 - INFO - [main.py:113] - 开始训练 LR 模型
-2025-07-09 16:39:38 - INFO - [ml_models.py:157] - LR 训练完成，迭代次数: [39]
-2025-07-09 16:39:39 - INFO - [ml_trainer.py:33] - 最终准确率: 0.925
-2025-07-09 16:39:39 - INFO - [ml_trainer.py:34] - 最终AUC: 0.992
-2025-07-09 16:39:39 - INFO - [main.py:115] - Centralized训练完成
-2025-07-09 16:39:39 - INFO - [main.py:146] - 训练总耗时: 4.79 秒
+2025-07-15 10:49:36 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_104936.log
+2025-07-15 10:49:37 - INFO - [main.py:148] - 实验模式: Centralized
+2025-07-15 10:49:37 - INFO - [main.py:152] - 模型初始化完成: LR
+2025-07-15 10:49:37 - INFO - [main.py:87] - 加载完整数据集
+2025-07-15 10:49:37 - INFO - [main.py:140] - 开始训练 LR 模型
+2025-07-15 10:49:43 - INFO - [ml_models.py:157] - LR 训练完成，迭代次数: [39]
+2025-07-15 10:49:43 - INFO - [ml_trainer.py:33] - 最终准确率: 0.925
+2025-07-15 10:49:43 - INFO - [ml_trainer.py:34] - 最终AUC: 0.992
+2025-07-15 10:49:43 - INFO - [main.py:142] - Centralized训练完成
+2025-07-15 10:49:43 - INFO - [main.py:172] - 训练总耗时: 6.48 秒

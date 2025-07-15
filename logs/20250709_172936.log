@@ -1,6 +1,0 @@
-2025-07-09 17:29:36 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250709_172936.log
-2025-07-09 17:29:36 - INFO - [main.py:148] - 实验模式: Federated
-2025-07-09 17:29:36 - INFO - [main.py:152] - 模型初始化完成: CNN
-2025-07-09 17:29:36 - INFO - [main.py:102] - 为联邦学习加载数据，分布类型: noniid_quantity_skew
-2025-07-09 17:29:36 - ERROR - [main.py:125] - 数据文件不存在: D:\workspace\CFLP_Revision\data/client1/mnist_train_noniid_quantity_skew.npz 或 D:\workspace\CFLP_Revision\data/client1/mnist_test_noniid_quantity_skew.npz
-2025-07-09 17:29:36 - ERROR - [main.py:126] - 请先运行 'python src/data_process/generate_mnist_data.py' 生成所需的数据文件。

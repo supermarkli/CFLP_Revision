@@ -19,6 +19,7 @@ class Client:
         self.model = self.model.to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=config['training']['learning_rate'])
         self.criterion = torch.nn.CrossEntropyLoss()
+        # self.optimizer = torch.optim.SGD(self.model.parameters(), lr=config['training']['learning_rate'])
         # 数据准备
         x_train = torch.tensor(self.data.x, dtype=torch.float32)
         y_train = torch.tensor(self.data.y, dtype=torch.long)

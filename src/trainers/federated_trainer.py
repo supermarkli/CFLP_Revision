@@ -1,5 +1,6 @@
 import os
 import sys
+import math
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(PROJECT_ROOT)
@@ -69,7 +70,7 @@ class FederatedTrainer(BaseTrainer):
             log_message = (
                 f"[Federated][Round {r+1}/{rounds}] "
                 f"客户端平均准确率: {format(int(avg_acc * 1000) / 1000, '.3f')}, "
-                f"平均AUC: {format(int(avg_auc * 1000) / 1000, '.3f') if avg_auc is not None else '计算失败'} "
+                f"平均AUC: {format(int(avg_auc * 1000) / 1000, '.3f') if avg_auc is not None and not math.isnan(avg_auc) else 'pass'} "
                 f"平均损失: {format(int(avg_loss * 1000) / 1000, '.3f')}"
             )
             logger.info(log_message)
@@ -93,7 +94,7 @@ class FederatedTrainer(BaseTrainer):
         # 恢复最佳模型
         self.save_best_model()
         logger.info(f"最终准确率: {format(int(self.best_acc * 1000) / 1000, '.3f')}")
-        logger.info(f"最终AUC: {format(int(self.best_auc * 1000) / 1000, '.3f') if self.best_auc is not None else '计算失败'}")
+        logger.info(f"最终AUC: {format(int(self.best_auc * 1000) / 1000, '.3f') if self.best_auc is not None and not math.isnan(self.best_auc) else 'pass'}")
 
     def evaluate(self, test_data):
         """联邦Trainer不直接评估全局模型，仅为抽象方法占位"""
