@@ -1,0 +1,53 @@
+2025-07-15 19:22:26 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_192226.log
+2025-07-15 19:22:26 - INFO - [main.py:148] - 实验模式: Federated
+2025-07-15 19:22:26 - INFO - [main.py:152] - 模型初始化完成: CNN
+2025-07-15 19:22:26 - INFO - [main.py:102] - 为联邦学习加载数据，分布类型: iid
+2025-07-15 19:22:27 - INFO - [main.py:140] - 开始训练 CNN 模型
+2025-07-15 19:22:43 - INFO - [federated_trainer.py:76] - [Federated][Round 1/100] 客户端平均准确率: 0.972, 平均AUC: 0.999 平均损失: 0.088
+2025-07-15 19:22:58 - INFO - [federated_trainer.py:76] - [Federated][Round 2/100] 客户端平均准确率: 0.979, 平均AUC: 0.999 平均损失: 0.066
+2025-07-15 19:23:13 - INFO - [federated_trainer.py:76] - [Federated][Round 3/100] 客户端平均准确率: 0.982, 平均AUC: 0.999 平均损失: 0.055
+2025-07-15 19:23:28 - INFO - [federated_trainer.py:76] - [Federated][Round 4/100] 客户端平均准确率: 0.984, 平均AUC: 0.999 平均损失: 0.050
+2025-07-15 19:23:43 - INFO - [federated_trainer.py:76] - [Federated][Round 5/100] 客户端平均准确率: 0.985, 平均AUC: 0.999 平均损失: 0.044
+2025-07-15 19:23:58 - INFO - [federated_trainer.py:76] - [Federated][Round 6/100] 客户端平均准确率: 0.984, 平均AUC: 0.999 平均损失: 0.051
+2025-07-15 19:24:13 - INFO - [federated_trainer.py:76] - [Federated][Round 7/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.039
+2025-07-15 19:24:28 - INFO - [federated_trainer.py:76] - [Federated][Round 8/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.045
+2025-07-15 19:24:43 - INFO - [federated_trainer.py:76] - [Federated][Round 9/100] 客户端平均准确率: 0.987, 平均AUC: 0.999 平均损失: 0.042
+2025-07-15 19:24:58 - INFO - [federated_trainer.py:76] - [Federated][Round 10/100] 客户端平均准确率: 0.987, 平均AUC: 0.999 平均损失: 0.044
+2025-07-15 19:25:13 - INFO - [federated_trainer.py:76] - [Federated][Round 11/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.044
+2025-07-15 19:25:27 - INFO - [federated_trainer.py:76] - [Federated][Round 12/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.043
+2025-07-15 19:25:42 - INFO - [federated_trainer.py:76] - [Federated][Round 13/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 19:25:57 - INFO - [federated_trainer.py:76] - [Federated][Round 14/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.043
+2025-07-15 19:26:12 - INFO - [federated_trainer.py:76] - [Federated][Round 15/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.041
+2025-07-15 19:26:27 - INFO - [federated_trainer.py:76] - [Federated][Round 16/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.041
+2025-07-15 19:26:42 - INFO - [federated_trainer.py:76] - [Federated][Round 17/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.047
+2025-07-15 19:26:57 - INFO - [federated_trainer.py:76] - [Federated][Round 18/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.049
+2025-07-15 19:27:12 - INFO - [federated_trainer.py:76] - [Federated][Round 19/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.041
+2025-07-15 19:27:27 - INFO - [federated_trainer.py:76] - [Federated][Round 20/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.052
+2025-07-15 19:27:42 - INFO - [federated_trainer.py:76] - [Federated][Round 21/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.046
+2025-07-15 19:27:57 - INFO - [federated_trainer.py:76] - [Federated][Round 22/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.046
+2025-07-15 19:28:12 - INFO - [federated_trainer.py:76] - [Federated][Round 23/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.037
+2025-07-15 19:28:27 - INFO - [federated_trainer.py:76] - [Federated][Round 24/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.045
+2025-07-15 19:28:42 - INFO - [federated_trainer.py:76] - [Federated][Round 25/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.055
+2025-07-15 19:28:57 - INFO - [federated_trainer.py:76] - [Federated][Round 26/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.041
+2025-07-15 19:29:12 - INFO - [federated_trainer.py:76] - [Federated][Round 27/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.043
+2025-07-15 19:29:27 - INFO - [federated_trainer.py:76] - [Federated][Round 28/100] 客户端平均准确率: 0.991, 平均AUC: 0.999 平均损失: 0.046
+2025-07-15 19:29:42 - INFO - [federated_trainer.py:76] - [Federated][Round 29/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.048
+2025-07-15 19:29:57 - INFO - [federated_trainer.py:76] - [Federated][Round 30/100] 客户端平均准确率: 0.991, 平均AUC: 0.999 平均损失: 0.037
+2025-07-15 19:30:12 - INFO - [federated_trainer.py:76] - [Federated][Round 31/100] 客户端平均准确率: 0.991, 平均AUC: 0.999 平均损失: 0.043
+2025-07-15 19:30:27 - INFO - [federated_trainer.py:76] - [Federated][Round 32/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.044
+2025-07-15 19:30:41 - INFO - [federated_trainer.py:76] - [Federated][Round 33/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.053
+2025-07-15 19:30:56 - INFO - [federated_trainer.py:76] - [Federated][Round 34/100] 客户端平均准确率: 0.991, 平均AUC: 0.999 平均损失: 0.044
+2025-07-15 19:31:11 - INFO - [federated_trainer.py:76] - [Federated][Round 35/100] 客户端平均准确率: 0.992, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 19:31:26 - INFO - [federated_trainer.py:76] - [Federated][Round 36/100] 客户端平均准确率: 0.991, 平均AUC: 0.999 平均损失: 0.046
+2025-07-15 19:31:41 - INFO - [federated_trainer.py:76] - [Federated][Round 37/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.053
+2025-07-15 19:31:56 - INFO - [federated_trainer.py:76] - [Federated][Round 38/100] 客户端平均准确率: 0.992, 平均AUC: 0.999 平均损失: 0.035
+2025-07-15 19:32:11 - INFO - [federated_trainer.py:76] - [Federated][Round 39/100] 客户端平均准确率: 0.992, 平均AUC: 0.999 平均损失: 0.035
+2025-07-15 19:32:26 - INFO - [federated_trainer.py:76] - [Federated][Round 40/100] 客户端平均准确率: 0.993, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 19:32:41 - INFO - [federated_trainer.py:76] - [Federated][Round 41/100] 客户端平均准确率: 0.993, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 19:32:55 - INFO - [federated_trainer.py:76] - [Federated][Round 42/100] 客户端平均准确率: 0.993, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 19:33:10 - INFO - [federated_trainer.py:76] - [Federated][Round 43/100] 客户端平均准确率: 0.994, 平均AUC: 0.999 平均损失: 0.034
+2025-07-15 19:33:10 - INFO - [federated_trainer.py:87] - [Federated] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练
+2025-07-15 19:33:10 - INFO - [federated_trainer.py:96] - 最终准确率: 0.994
+2025-07-15 19:33:10 - INFO - [federated_trainer.py:97] - 最终AUC: 0.999
+2025-07-15 19:33:10 - INFO - [main.py:142] - Federated训练完成
+2025-07-15 19:33:10 - INFO - [main.py:172] - 训练总耗时: 643.87 秒

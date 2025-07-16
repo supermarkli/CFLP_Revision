@@ -1,13 +1,13 @@
-模式,模型,数据分布,准确率,AUC,训练总耗时（秒）
-Centralized,CNN,N/A,0.992,0.999,157.63
-Centralized,MLP,N/A,0.980,0.999,46.86
-Centralized,KNN,N/A,0.944,0.990,8.52
-Centralized,RF,N/A,0.970,0.999,40.05
-Centralized,SVC,N/A,0.966,0.993,427.51
-Centralized,LR,N/A,0.925,0.992,6.48
-Federated,CNN,iid,0.991,0.999,560.24
-Federated,CNN,noniid_label_skew,0.997,,221.53
-Federated,CNN,noniid_quantity_skew,0.995,0.999,596.86
-Federated,MLP,iid,0.973,0.999,50.51
-Federated,MLP,noniid_label_skew,0.987,,17.44
-Federated,MLP,noniid_quantity_skew,0.974,0.999,41.22
+模式,模型,数据分布,准确率 (均值±标准差),AUC (均值±标准差),训练总耗时 (均值±标准差)
+Centralized,CNN,N/A,0.9930±0.0008,0.9990±0.0000,522.07±70.34
+Centralized,MLP,N/A,0.9800±0.0014,0.9990±0.0000,77.70±22.90
+Centralized,KNN,N/A,0.9440±0.0000,0.9900±0.0000,9.58±0.58
+Centralized,RF,N/A,0.9690±0.0000,0.9990±0.0000,44.40±0.58
+Centralized,SVC,N/A,0.9660±0.0000,0.9930±0.0000,405.54±31.88
+Centralized,LR,N/A,0.9250±0.0000,0.9920±0.0000,4.60±0.07
+Federated,CNN,iid,0.9937±0.0005,0.9990±0.0000,578.59±124.11
+Federated,CNN,noniid_label_skew,0.9967±0.0005,N/A,242.66±80.48
+Federated,CNN,noniid_quantity_skew,0.9920±0.0022,0.9990±0.0000,339.63±163.38
+Federated,MLP,iid,0.9790±0.0042,0.9990±0.0000,110.96±46.59
+Federated,MLP,noniid_label_skew,0.9873±0.0021,N/A,18.72±7.00
+Federated,MLP,noniid_quantity_skew,0.9803±0.0031,0.9990±0.0000,112.35±38.27

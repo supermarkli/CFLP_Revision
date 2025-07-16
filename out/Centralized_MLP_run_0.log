@@ -1,0 +1,39 @@
+2025-07-15 18:35:41 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_183541.log
+2025-07-15 18:35:41 - INFO - [main.py:148] - 实验模式: Centralized
+2025-07-15 18:35:41 - INFO - [main.py:152] - 模型初始化完成: MLP
+2025-07-15 18:35:41 - INFO - [main.py:87] - 加载完整数据集
+2025-07-15 18:35:42 - INFO - [main.py:140] - 开始训练 MLP 模型
+2025-07-15 18:35:45 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 1/100] 准确率: 0.955  AUC: 0.998 损失: 0.148
+2025-07-15 18:35:47 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 2/100] 准确率: 0.966  AUC: 0.999 损失: 0.110
+2025-07-15 18:35:49 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 3/100] 准确率: 0.970  AUC: 0.999 损失: 0.093
+2025-07-15 18:35:51 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 4/100] 准确率: 0.975  AUC: 0.999 损失: 0.074
+2025-07-15 18:35:53 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 5/100] 准确率: 0.974  AUC: 0.999 损失: 0.082
+2025-07-15 18:35:55 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 6/100] 准确率: 0.973  AUC: 0.999 损失: 0.083
+2025-07-15 18:35:57 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 7/100] 准确率: 0.975  AUC: 0.999 损失: 0.080
+2025-07-15 18:35:59 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 8/100] 准确率: 0.979  AUC: 0.999 损失: 0.075
+2025-07-15 18:36:00 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 9/100] 准确率: 0.973  AUC: 0.999 损失: 0.105
+2025-07-15 18:36:02 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 10/100] 准确率: 0.977  AUC: 0.999 损失: 0.091
+2025-07-15 18:36:04 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 11/100] 准确率: 0.979  AUC: 0.999 损失: 0.086
+2025-07-15 18:36:06 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 12/100] 准确率: 0.972  AUC: 0.999 损失: 0.109
+2025-07-15 18:36:07 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 13/100] 准确率: 0.979  AUC: 0.999 损失: 0.088
+2025-07-15 18:36:09 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 14/100] 准确率: 0.976  AUC: 0.999 损失: 0.096
+2025-07-15 18:36:11 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 15/100] 准确率: 0.979  AUC: 0.999 损失: 0.097
+2025-07-15 18:36:13 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 16/100] 准确率: 0.979  AUC: 0.999 损失: 0.098
+2025-07-15 18:36:14 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 17/100] 准确率: 0.978  AUC: 0.999 损失: 0.105
+2025-07-15 18:36:16 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 18/100] 准确率: 0.976  AUC: 0.999 损失: 0.128
+2025-07-15 18:36:18 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 19/100] 准确率: 0.979  AUC: 0.999 损失: 0.096
+2025-07-15 18:36:20 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 20/100] 准确率: 0.969  AUC: 0.999 损失: 0.154
+2025-07-15 18:36:21 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 21/100] 准确率: 0.976  AUC: 0.999 损失: 0.119
+2025-07-15 18:36:23 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 22/100] 准确率: 0.975  AUC: 0.999 损失: 0.126
+2025-07-15 18:36:25 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 23/100] 准确率: 0.974  AUC: 0.999 损失: 0.144
+2025-07-15 18:36:26 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 24/100] 准确率: 0.979  AUC: 0.999 损失: 0.120
+2025-07-15 18:36:28 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 25/100] 准确率: 0.978  AUC: 0.999 损失: 0.116
+2025-07-15 18:36:30 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 26/100] 准确率: 0.978  AUC: 0.999 损失: 0.124
+2025-07-15 18:36:31 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 27/100] 准确率: 0.977  AUC: 0.999 损失: 0.123
+2025-07-15 18:36:33 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 28/100] 准确率: 0.978  AUC: 0.999 损失: 0.133
+2025-07-15 18:36:35 - INFO - [centralized_trainer.py:52] - [Centralized][Epoch 29/100] 准确率: 0.978  AUC: 0.999 损失: 0.125
+2025-07-15 18:36:35 - INFO - [centralized_trainer.py:63] - [Centralized] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练。
+2025-07-15 18:36:35 - INFO - [centralized_trainer.py:68] - 最终准确率: 0.979
+2025-07-15 18:36:35 - INFO - [centralized_trainer.py:69] - 最终AUC: 0.999
+2025-07-15 18:36:35 - INFO - [main.py:142] - Centralized训练完成
+2025-07-15 18:36:35 - INFO - [main.py:172] - 训练总耗时: 53.62 秒
