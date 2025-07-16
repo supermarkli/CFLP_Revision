@@ -1,0 +1,21 @@
+2025-07-15 19:39:14 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_193914.log
+2025-07-15 19:39:14 - INFO - [main.py:148] - 实验模式: Federated
+2025-07-15 19:39:14 - INFO - [main.py:152] - 模型初始化完成: CNN
+2025-07-15 19:39:14 - INFO - [main.py:102] - 为联邦学习加载数据，分布类型: noniid_label_skew
+2025-07-15 19:39:14 - INFO - [main.py:140] - 开始训练 CNN 模型
+2025-07-15 19:39:31 - INFO - [federated_trainer.py:76] - [Federated][Round 1/100] 客户端平均准确率: 0.986, 平均AUC: pass 平均损失: 0.038
+2025-07-15 19:39:46 - INFO - [federated_trainer.py:76] - [Federated][Round 2/100] 客户端平均准确率: 0.991, 平均AUC: pass 平均损失: 0.023
+2025-07-15 19:40:00 - INFO - [federated_trainer.py:76] - [Federated][Round 3/100] 客户端平均准确率: 0.993, 平均AUC: pass 平均损失: 0.020
+2025-07-15 19:40:15 - INFO - [federated_trainer.py:76] - [Federated][Round 4/100] 客户端平均准确率: 0.992, 平均AUC: pass 平均损失: 0.025
+2025-07-15 19:40:30 - INFO - [federated_trainer.py:76] - [Federated][Round 5/100] 客户端平均准确率: 0.995, 平均AUC: pass 平均损失: 0.013
+2025-07-15 19:40:45 - INFO - [federated_trainer.py:76] - [Federated][Round 6/100] 客户端平均准确率: 0.995, 平均AUC: pass 平均损失: 0.012
+2025-07-15 19:41:00 - INFO - [federated_trainer.py:76] - [Federated][Round 7/100] 客户端平均准确率: 0.995, 平均AUC: pass 平均损失: 0.013
+2025-07-15 19:41:15 - INFO - [federated_trainer.py:76] - [Federated][Round 8/100] 客户端平均准确率: 0.996, 平均AUC: pass 平均损失: 0.011
+2025-07-15 19:41:29 - INFO - [federated_trainer.py:76] - [Federated][Round 9/100] 客户端平均准确率: 0.996, 平均AUC: pass 平均损失: 0.011
+2025-07-15 19:41:44 - INFO - [federated_trainer.py:76] - [Federated][Round 10/100] 客户端平均准确率: 0.996, 平均AUC: pass 平均损失: 0.009
+2025-07-15 19:41:59 - INFO - [federated_trainer.py:76] - [Federated][Round 11/100] 客户端平均准确率: 0.997, 平均AUC: pass 平均损失: 0.008
+2025-07-15 19:41:59 - INFO - [federated_trainer.py:87] - [Federated] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练
+2025-07-15 19:41:59 - INFO - [federated_trainer.py:96] - 最终准确率: 0.997
+2025-07-15 19:41:59 - INFO - [federated_trainer.py:97] - 最终AUC: pass
+2025-07-15 19:41:59 - INFO - [main.py:142] - Federated训练完成
+2025-07-15 19:41:59 - INFO - [main.py:172] - 训练总耗时: 164.72 秒

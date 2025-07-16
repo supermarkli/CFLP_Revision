@@ -1,0 +1,24 @@
+2025-07-15 19:59:19 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_195919.log
+2025-07-15 19:59:19 - INFO - [main.py:148] - 实验模式: Federated
+2025-07-15 19:59:19 - INFO - [main.py:152] - 模型初始化完成: CNN
+2025-07-15 19:59:19 - INFO - [main.py:102] - 为联邦学习加载数据，分布类型: noniid_quantity_skew
+2025-07-15 19:59:19 - INFO - [main.py:140] - 开始训练 CNN 模型
+2025-07-15 19:59:36 - INFO - [federated_trainer.py:76] - [Federated][Round 1/100] 客户端平均准确率: 0.964, 平均AUC: 0.998 平均损失: 0.119
+2025-07-15 19:59:51 - INFO - [federated_trainer.py:76] - [Federated][Round 2/100] 客户端平均准确率: 0.977, 平均AUC: 0.999 平均损失: 0.070
+2025-07-15 20:00:06 - INFO - [federated_trainer.py:76] - [Federated][Round 3/100] 客户端平均准确率: 0.985, 平均AUC: 0.999 平均损失: 0.051
+2025-07-15 20:00:21 - INFO - [federated_trainer.py:76] - [Federated][Round 4/100] 客户端平均准确率: 0.985, 平均AUC: 0.999 平均损失: 0.042
+2025-07-15 20:00:35 - INFO - [federated_trainer.py:76] - [Federated][Round 5/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 20:00:50 - INFO - [federated_trainer.py:76] - [Federated][Round 6/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.037
+2025-07-15 20:01:05 - INFO - [federated_trainer.py:76] - [Federated][Round 7/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 20:01:20 - INFO - [federated_trainer.py:76] - [Federated][Round 8/100] 客户端平均准确率: 0.987, 平均AUC: 0.999 平均损失: 0.036
+2025-07-15 20:01:35 - INFO - [federated_trainer.py:76] - [Federated][Round 9/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 20:01:50 - INFO - [federated_trainer.py:76] - [Federated][Round 10/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 20:02:05 - INFO - [federated_trainer.py:76] - [Federated][Round 11/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.030
+2025-07-15 20:02:19 - INFO - [federated_trainer.py:76] - [Federated][Round 12/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 20:02:34 - INFO - [federated_trainer.py:76] - [Federated][Round 13/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.032
+2025-07-15 20:02:49 - INFO - [federated_trainer.py:76] - [Federated][Round 14/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.033
+2025-07-15 20:02:49 - INFO - [federated_trainer.py:87] - [Federated] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练
+2025-07-15 20:02:49 - INFO - [federated_trainer.py:96] - 最终准确率: 0.990
+2025-07-15 20:02:49 - INFO - [federated_trainer.py:97] - 最终AUC: 0.999
+2025-07-15 20:02:49 - INFO - [main.py:142] - Federated训练完成
+2025-07-15 20:02:49 - INFO - [main.py:172] - 训练总耗时: 209.65 秒

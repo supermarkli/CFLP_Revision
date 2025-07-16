@@ -1,0 +1,37 @@
+2025-07-15 19:04:04 - INFO - [logging_config.py:44] - 日志文件已创建: D:\workspace\CFLP_Revision\logs\20250715_190404.log
+2025-07-15 19:04:04 - INFO - [main.py:148] - 实验模式: Federated
+2025-07-15 19:04:04 - INFO - [main.py:152] - 模型初始化完成: CNN
+2025-07-15 19:04:04 - INFO - [main.py:102] - 为联邦学习加载数据，分布类型: iid
+2025-07-15 19:04:04 - INFO - [main.py:140] - 开始训练 CNN 模型
+2025-07-15 19:04:20 - INFO - [federated_trainer.py:76] - [Federated][Round 1/100] 客户端平均准确率: 0.971, 平均AUC: 0.999 平均损失: 0.094
+2025-07-15 19:04:35 - INFO - [federated_trainer.py:76] - [Federated][Round 2/100] 客户端平均准确率: 0.973, 平均AUC: 0.999 平均损失: 0.085
+2025-07-15 19:04:50 - INFO - [federated_trainer.py:76] - [Federated][Round 3/100] 客户端平均准确率: 0.981, 平均AUC: 0.999 平均损失: 0.062
+2025-07-15 19:05:05 - INFO - [federated_trainer.py:76] - [Federated][Round 4/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.046
+2025-07-15 19:05:20 - INFO - [federated_trainer.py:76] - [Federated][Round 5/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.041
+2025-07-15 19:05:35 - INFO - [federated_trainer.py:76] - [Federated][Round 6/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.042
+2025-07-15 19:05:50 - INFO - [federated_trainer.py:76] - [Federated][Round 7/100] 客户端平均准确率: 0.987, 平均AUC: 0.999 平均损失: 0.042
+2025-07-15 19:06:05 - INFO - [federated_trainer.py:76] - [Federated][Round 8/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.046
+2025-07-15 19:06:20 - INFO - [federated_trainer.py:76] - [Federated][Round 9/100] 客户端平均准确率: 0.987, 平均AUC: 0.999 平均损失: 0.039
+2025-07-15 19:06:35 - INFO - [federated_trainer.py:76] - [Federated][Round 10/100] 客户端平均准确率: 0.987, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 19:06:50 - INFO - [federated_trainer.py:76] - [Federated][Round 11/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.043
+2025-07-15 19:07:05 - INFO - [federated_trainer.py:76] - [Federated][Round 12/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.036
+2025-07-15 19:07:20 - INFO - [federated_trainer.py:76] - [Federated][Round 13/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.036
+2025-07-15 19:07:35 - INFO - [federated_trainer.py:76] - [Federated][Round 14/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 19:07:50 - INFO - [federated_trainer.py:76] - [Federated][Round 15/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.044
+2025-07-15 19:08:05 - INFO - [federated_trainer.py:76] - [Federated][Round 16/100] 客户端平均准确率: 0.988, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 19:08:20 - INFO - [federated_trainer.py:76] - [Federated][Round 17/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.038
+2025-07-15 19:08:35 - INFO - [federated_trainer.py:76] - [Federated][Round 18/100] 客户端平均准确率: 0.990, 平均AUC: 0.999 平均损失: 0.037
+2025-07-15 19:08:49 - INFO - [federated_trainer.py:76] - [Federated][Round 19/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.042
+2025-07-15 19:09:04 - INFO - [federated_trainer.py:76] - [Federated][Round 20/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.042
+2025-07-15 19:09:19 - INFO - [federated_trainer.py:76] - [Federated][Round 21/100] 客户端平均准确率: 0.986, 平均AUC: 0.999 平均损失: 0.050
+2025-07-15 19:09:34 - INFO - [federated_trainer.py:76] - [Federated][Round 22/100] 客户端平均准确率: 0.989, 平均AUC: 0.999 平均损失: 0.040
+2025-07-15 19:09:49 - INFO - [federated_trainer.py:76] - [Federated][Round 23/100] 客户端平均准确率: 0.991, 平均AUC: 0.999 平均损失: 0.035
+2025-07-15 19:10:04 - INFO - [federated_trainer.py:76] - [Federated][Round 24/100] 客户端平均准确率: 0.992, 平均AUC: 0.999 平均损失: 0.034
+2025-07-15 19:10:19 - INFO - [federated_trainer.py:76] - [Federated][Round 25/100] 客户端平均准确率: 0.992, 平均AUC: 0.999 平均损失: 0.031
+2025-07-15 19:10:34 - INFO - [federated_trainer.py:76] - [Federated][Round 26/100] 客户端平均准确率: 0.993, 平均AUC: 0.999 平均损失: 0.030
+2025-07-15 19:10:49 - INFO - [federated_trainer.py:76] - [Federated][Round 27/100] 客户端平均准确率: 0.993, 平均AUC: 0.999 平均损失: 0.030
+2025-07-15 19:10:49 - INFO - [federated_trainer.py:87] - [Federated] 收敛检测：最近准确率波动未超过阈值(0.001)，提前停止训练
+2025-07-15 19:10:49 - INFO - [federated_trainer.py:96] - 最终准确率: 0.993
+2025-07-15 19:10:49 - INFO - [federated_trainer.py:97] - 最终AUC: 0.999
+2025-07-15 19:10:49 - INFO - [main.py:142] - Federated训练完成
+2025-07-15 19:10:49 - INFO - [main.py:172] - 训练总耗时: 404.85 秒

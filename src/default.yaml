@@ -1,100 +1,56 @@
-# ==================================
-#         General Settings
-# ==================================
-# 'Centralized' or 'Federated'
-mode: Federated
-seed: 42
-
-# ==================================
-#          Data Settings
-# ==================================
 data:
-  # Path for complete data used in Centralized mode
-  complete: data/complete/
-  
-  # List of client data directories for Federated mode
   clients:
-    - data/client1/
-    - data/client2/
-    - data/client3/
-  
-  # Data distribution type for Federated Learning
-  # Options: 'iid', 'noniid_label_skew', 'noniid_quantity_skew'
+  - data/client1/
+  - data/client2/
+  - data/client3/
+  complete: data/complete/
   federated_dist: iid
-
-# ==================================
-#         Training Settings
-# ==================================
-training:
-  # Epochs for Centralized training
-  epochs: 100
-  learning_rate: 0.001
-  batch_size: 100
-  eval_batch_size: 128
-  converge_threshold: 0.001
-
-# ==================================
-#    Federated Learning Settings
-# ==================================
 federated:
-  # Total communication rounds
-  rounds: 100
-  # Total number of clients
-  num_clients: 3
-  # Local training epochs on clients per round
-  local_epochs: 1
-  # Aggregation algorithm
   aggregation: fedavg
-
-# ==================================
-#         Model Settings
-# ==================================
+  local_epochs: 1
+  num_clients: 3
+  rounds: 100
+log_dir: logs/
+mode: Centralized
 model:
-  # Active model type. Options: CNN, MLP, KNN, RF, SVC, LR
-  type: CNN
-  
-  # --- Deep Learning Models ---
   CNN:
-    in_features: 1
     dim: 1024
+    in_features: 1
     num_classes: 10
-  
   MLP:
-    input_dim: 784
-    hidden_dims:
-      - 128
-      - 64
-    num_classes: 10
     activation: relu
-    
-  # --- Traditional ML Models ---
+    hidden_dims:
+    - 128
+    - 64
+    input_dim: 784
+    num_classes: 10
   ml:
     KNN:
+      algorithm: auto
       n_neighbors: 5
       weights: uniform
-      algorithm: auto
-      
     LR:
       C: 1.0
+      class_weight: balanced
       max_iter: 5000
       tol: 0.001
-      class_weight: balanced
-      
     RF:
-      n_estimators: 100
-      max_depth: null
-      min_samples_split: 2
-      min_samples_leaf: 1
-      max_features: sqrt
       class_weight: balanced
-      
+      max_depth: null
+      max_features: sqrt
+      min_samples_leaf: 1
+      min_samples_split: 2
+      n_estimators: 100
     SVC:
       C: 1.0
+      class_weight: balanced
       max_iter: 5000
       tol: 0.001
-      class_weight: balanced
-
-# ==================================
-#          Path Settings
-# ==================================
-log_dir: logs/
+  type: CNN
+seed: 42
+training:
+  batch_size: 100
+  converge_threshold: 0.001
+  epochs: 100
+  eval_batch_size: 128
+  learning_rate: 0.001
