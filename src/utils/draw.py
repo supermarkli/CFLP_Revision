@@ -9,9 +9,14 @@ import pandas as pd
 
 logger=get_logger()
 
+from matplotlib.font_manager import FontManager
+mpl_fonts = set(f.name for f in FontManager().ttflist)
+print('all font list get from matplotlib.font_manager:')
+for f in sorted(mpl_fonts):
+    print('\t' + f)
 
 # 设置中文字体
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体显示中文
+plt.rcParams['font.family'] =  ['SimSun']  # Use Times New Roman for English, fallback to SimSun for Chinese
 plt.rcParams['axes.unicode_minus'] = False    # 正常显示负号
 save_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'out'))
 os.makedirs(save_dir, exist_ok=True)
@@ -68,18 +73,18 @@ def plot_experiment_results_bar(save_dir, data=None):
     width = 0.35
 
     fig, ax = plt.subplots(figsize=(20, 9), dpi=300)
-    color1 = '#5B9BD5'
-    color2 = '#70AD47'
+    color1 = '#D3D3D3'  # 浅灰色
+    color2 = '#404040'  # 深灰色
 
     # 绘制准确率柱子
     bars1 = ax.bar(x - width/2, df['准确率_均值'], width, 
-                   label='准确率', color=color1, edgecolor='black', linewidth=0.7)
+                   label='准确率', color=color2, edgecolor='black', linewidth=0.7)
 
     # 仅为有AUC值的行绘制柱子
     auc_df = df.dropna(subset=['AUC_均值'])
     auc_indices = auc_df.index.to_numpy()
-    bars2 = ax.bar(x[auc_indices] + width/2, auc_df['AUC_均值'], width,
-                   label='AUC', color=color2, edgecolor='black', linewidth=0.7)
+    bars2 = ax.bar(x[auc_indices] + width/2, df['AUC_均值'][auc_df.index], width,
+                   label='AUC', color=color1, edgecolor='black', linewidth=0.7, hatch='//')
 
 
     def add_labels(bars):
