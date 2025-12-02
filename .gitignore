@@ -13,3 +13,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
+
+# 数据文件（太大，不应提交到 Git）
+*.npz
+data/
