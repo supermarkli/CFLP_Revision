@@ -8,10 +8,7 @@ import torch
 from types import SimpleNamespace
 from src.utils.logging_config import get_logger
 from .base_trainer import BaseTrainer
-from tqdm import tqdm
 import numpy as np
-from sklearn.utils import parallel_backend
-from sklearn.base import clone
 
 logger = get_logger()
 
@@ -24,8 +21,11 @@ class MLTrainer(BaseTrainer):
             train_data: SimpleNamespace, 包含x和y的训练数据
             test_data: SimpleNamespace, 包含x和y的测试数据
         """
-        x_train = torch.tensor(train_data.x, dtype=torch.float32)
-        y_train = torch.tensor(train_data.y, dtype=torch.long)
+        # 使用 from_numpy 避免数据复制
+        x_np = train_data.x.astype(np.float32) if train_data.x.dtype != np.float32 else train_data.x
+        y_np = train_data.y.astype(np.int64) if train_data.y.dtype != np.int64 else train_data.y
+        x_train = torch.from_numpy(x_np)
+        y_train = torch.from_numpy(y_np)
         if x_train.ndim > 2:
             x_train = x_train.reshape(x_train.shape[0], -1)
         self.model.fit(x_train, y_train)
@@ -36,13 +36,16 @@ class MLTrainer(BaseTrainer):
 
     def evaluate(self, test_data: SimpleNamespace):
         """评估ML模型，输出损失、准确率、AUC"""
-        import torch.nn.functional as F
         from sklearn.metrics import accuracy_score, roc_auc_score, log_loss
-        x_test = torch.tensor(test_data.x, dtype=torch.float32)
+        
+        # 使用 from_numpy 避免数据复制
+        x_np = test_data.x.astype(np.float32) if test_data.x.dtype != np.float32 else test_data.x
+        x_test = torch.from_numpy(x_np)
         y_test = test_data.y
         if x_test.ndim > 2:
             x_test = x_test.reshape(x_test.shape[0], -1)
-        with torch.no_grad():
+        
+        with torch.inference_mode():  # 比 no_grad 更快
             y_proba = self.model(x_test).cpu().numpy()
             y_pred = np.argmax(y_proba, axis=1)
         try:

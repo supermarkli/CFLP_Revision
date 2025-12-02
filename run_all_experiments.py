@@ -19,7 +19,7 @@ import sys
 sys.path.append(PROJECT_ROOT)
 from src.utils.draw import plot_experiment_results_bar
 # 所有模型类型
-MODEL_TYPES = ['CNN', 'MLP', 'KNN', 'RF', 'SVC', 'LR']
+MODEL_TYPES = ['CNN', 'ResNet18', 'KNN', 'RF', 'SVC', 'LR']
 # 支持的实验模式
 MODES = ['Centralized', 'Federated']
 # 联邦学习数据分布
@@ -27,7 +27,7 @@ FEDERATED_DISTS = ['iid', 'noniid_label_skew', 'noniid_quantity_skew']
 # 传统ML模型
 ML_MODELS = ['KNN', 'RF', 'SVC', 'LR']
 # 每个实验的重复次数
-NUM_RUNS = 3
+NUM_RUNS = 1
 
 batch_log = os.path.join(OUT_DIR, 'batch.log')
 os.makedirs(OUT_DIR, exist_ok=True)
