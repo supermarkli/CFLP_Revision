@@ -106,7 +106,6 @@ def create_model(config):
         final_cfg['in_features'] = dataset_info['in_channels']
         final_cfg['dim'] = dataset_info['cnn_dim']
         final_cfg['num_classes'] = dataset_info['num_classes']
-        logger.info(f"CNN 参数 (根据 {dataset_name} 自动推断): in_features={final_cfg['in_features']}, dim={final_cfg['dim']}, num_classes={final_cfg['num_classes']}")
         return FedAvgCNN(**final_cfg)
     elif model_type == 'ResNet18':
         default_cfg = {
@@ -114,7 +113,6 @@ def create_model(config):
             'num_classes': dataset_info['num_classes'],
         }
         final_cfg = {**default_cfg}
-        logger.info(f"ResNet18 参数 (根据 {dataset_name} 自动推断): in_features={final_cfg['in_features']}, num_classes={final_cfg['num_classes']}")
         return ResNet18(**final_cfg)
     elif model_type == 'MLP':
         user_cfg = config['model'].get('MLP', {})
@@ -124,7 +122,6 @@ def create_model(config):
             'hidden_dims': user_cfg.get('hidden_dims', [128, 64]),
             'activation': user_cfg.get('activation', 'relu'),
         }
-        logger.info(f"MLP 参数 (根据 {dataset_name} 自动推断): input_dim={default_cfg['input_dim']}, num_classes={default_cfg['num_classes']}")
         return MLP(**default_cfg)
     elif model_type in ['KNN', 'RF', 'SVC', 'LR']:
         # 获取对应模型的参数
@@ -175,7 +172,13 @@ def load_complete_data():
     return train_data, test_data
 
 def load_federated_data():
-    """根据配置加载联邦学习各客户端数据（IID或Non-IID）"""
+    """
+    根据配置加载联邦学习各客户端数据（IID或Non-IID）。
+    
+    返回:
+        clients_data: 各客户端的训练数据列表
+        global_test_data: 全局测试集（用于评估全局模型）
+    """
     config = load_config(os.path.join(PROJECT_ROOT, 'src', 'default.yaml'))
     
     # 获取数据集名称
@@ -187,36 +190,44 @@ def load_federated_data():
 
     if dist_type == 'iid':
         train_file = f'{dataset}_train.npz'
-        test_file = f'{dataset}_test.npz'
     elif dist_type == 'noniid_label_skew':
         train_file = f'{dataset}_train_noniid_label_skew.npz'
-        test_file = f'{dataset}_test_noniid_label_skew.npz'
     elif dist_type == 'noniid_quantity_skew':
         train_file = f'{dataset}_train_noniid_quantity_skew.npz'
-        test_file = f'{dataset}_test_noniid_quantity_skew.npz'
+    elif dist_type == 'noniid_dirichlet':
+        train_file = f'{dataset}_train_noniid_dirichlet.npz'
     else:
         logger.error(f"不支持的数据分布类型: {dist_type}")
         raise ValueError(f"不支持的数据分布类型: {dist_type}")
 
+    # 加载各客户端的训练数据
     client_dirs = [os.path.join(PROJECT_ROOT, d) for d in config['data']['clients']]
     clients_data = []
-    clients_test_data = []
     for client_dir in client_dirs:
         train_path = os.path.join(client_dir, train_file)
-        test_path = os.path.join(client_dir, test_file)
 
-        if not os.path.exists(train_path) or not os.path.exists(test_path):
-            logger.error(f"数据文件不存在: {train_path} 或 {test_path}")
+        if not os.path.exists(train_path):
+            logger.error(f"数据文件不存在: {train_path}")
             logger.error(f"请先运行 'python src/data_process/generate_{dataset}_data.py' 生成所需的数据文件。")
             sys.exit(1)
 
         train_npz = np.load(train_path)
-        test_npz = np.load(test_path)
         client_data = SimpleNamespace(x=train_npz['X_train'], y=train_npz['y_train'])
-        client_test = SimpleNamespace(x=test_npz['X_test'], y=test_npz['y_test'])
         clients_data.append(client_data)
-        clients_test_data.append(client_test)
-    return clients_data, clients_test_data
+        logger.info(f"客户端 {len(clients_data)} 训练数据加载完成，样本数: {len(client_data.x)}")
+    
+    # 加载全局测试集（官方测试集）
+    global_test_path = os.path.join(PROJECT_ROOT, config['data']['complete'], f'{dataset}_test.npz')
+    if not os.path.exists(global_test_path):
+        logger.error(f"全局测试集不存在: {global_test_path}")
+        logger.error(f"请先运行 'python src/data_process/generate_{dataset}_data.py' 生成所需的数据文件。")
+        sys.exit(1)
+    
+    test_npz = np.load(global_test_path)
+    global_test_data = SimpleNamespace(x=test_npz['X_test'], y=test_npz['y_test'])
+    logger.info(f"全局测试集加载完成，样本数: {len(global_test_data.x)}")
+    
+    return clients_data, global_test_data
 
 def run_training(model, train_data, test_data, config, mode):
     """统一训练入口，自动选择Trainer并输出日志"""
@@ -232,6 +243,16 @@ def main():
     logger.info(f"实验模式: {mode}")
     set_seed(config.get('seed', 42))
     
+    # 设备信息日志
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+        gpu_name = torch.cuda.get_device_name(0)
+        gpu_memory = torch.cuda.get_device_properties(0).total_memory / 1024**3
+        logger.info(f"🚀 使用 GPU 训练: {gpu_name} ({gpu_memory:.1f} GB)")
+    else:
+        device = torch.device('cpu')
+        logger.info(f"⚠️ 未检测到 GPU，使用 CPU 训练")
+    
     model = create_model(config)
     logger.info(f"模型初始化完成: {config['model']['type']}")
     
@@ -244,9 +265,9 @@ def main():
         if config['model']['type'] in ['KNN', 'RF', 'SVC', 'LR']:
             logger.error("传统机器学习模型暂不支持联邦学习模式")
             return
-        clients_data, clients_test_data = load_federated_data()
+        clients_data, global_test_data = load_federated_data()
         start_time = time.time()  # 计时开始
-        run_training(model, clients_data, clients_test_data, config, mode)
+        run_training(model, clients_data, global_test_data, config, mode)
     else:
         logger.error(f"未知模式: {mode}")
         return

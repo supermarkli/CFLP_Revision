@@ -89,7 +89,26 @@ class SVCWrapper(nn.Module):
             raise RuntimeError("需要先调用fit方法训练模型")
         x = preprocess_data(x)
         x = self.scaler.transform(x)
-        scores = self.svm.decision_function(x)
+        
+        # 对于大数据集，使用批处理预测以避免内存问题
+        batch_size = 1000  # 批处理大小
+        n_samples = x.shape[0]
+        
+        if n_samples > batch_size:
+            # 分批处理
+            all_scores = []
+            for i in range(0, n_samples, batch_size):
+                end_idx = min(i + batch_size, n_samples)
+                batch_x = x[i:end_idx]
+                batch_scores = self.svm.decision_function(batch_x)
+                all_scores.append(batch_scores)
+                # 每处理一批输出一次进度
+                if (i // batch_size) % 10 == 0:
+                    logger.debug(f"SVC 预测进度: {end_idx}/{n_samples} ({100*end_idx/n_samples:.1f}%)")
+            scores = np.vstack(all_scores)
+        else:
+            scores = self.svm.decision_function(x)
+        
         import scipy.special
         probs = scipy.special.softmax(scores, axis=1)
         return torch.from_numpy(probs).float().to(self.device)

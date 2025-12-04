@@ -1,18 +1,18 @@
 data:
-  dataset: cifar10  # 可选: mnist, cifar10, cifar100
   clients:
   - data/client1/
   - data/client2/
   - data/client3/
   complete: data/complete/
-  federated_dist: iid  # 可选: iid, noniid_label_skew, noniid_quantity_skew
+  dataset: cifar10
+  federated_dist: noniid_dirichlet # noniid_label_skew noniid_quantity_skew iid noniid_dirichlet
 federated:
   aggregation: fedavg
-  local_epochs: 1
+  local_epochs: 5
   num_clients: 3
-  rounds: 20
+  rounds: 10000  # 设置足够大，依靠收敛检测自动停止
 log_dir: logs/
-mode: Centralized  # 可选: Centralized, Federated
+mode: Federated
 model:
   MLP:
     activation: relu
@@ -30,7 +30,7 @@ model:
       max_iter: 5000
       tol: 0.001
     RF:
-      class_weight: balanced  # 可选: balanced, balanced_subsample, null
+      class_weight: balanced
       max_depth: null
       max_features: sqrt
       min_samples_leaf: 1
@@ -41,29 +41,28 @@ model:
       class_weight: balanced
       max_iter: 5000
       tol: 0.001
-  type: ResNet18  # 可选: CNN, ResNet18, MLP, KNN, RF, SVC, LR
-seed: 42
+  type: ResNet18
+seed: 0
 training:
-  batch_size: 128         # batch_size（ResNet 推荐 128）
-  converge_threshold: 0.0001
-  epochs: 20              # ResNet 需要更多 epochs
-  eval_batch_size: 512    # 评估时的 batch_size
-  eval_interval: 5        # 每 5 个 epoch 评估一次（加速训练）
-  # === 优化器配置（ResNet 推荐 SGD）===
-  optimizer: sgd          # 可选: adam, sgd
-  learning_rate: 0.1      # SGD 初始学习率（Adam 建议 0.001）
-  momentum: 0.9           # SGD momentum
-  weight_decay: 0.0005    # L2 正则化（防止过拟合）
-  # === 学习率调度器 ===
-  scheduler: cosine       # 可选: null, cosine, multistep
-  milestones: [60, 120, 160]  # multistep 的里程碑
-  gamma: 0.2              # multistep 的衰减率
-  # === 数据增强（提升泛化能力）===
-  use_augmentation: true  # 启用数据增强（RandomCrop + RandomHorizontalFlip）
-  # === GPU 专用参数（CPU 模式自动忽略）===
-  num_workers: 4          # DataLoader 多进程数
-  prefetch_factor: 2      # 预取批次数
-  use_amp: true           # 混合精度训练
-  # === CPU/GPU 通用参数 ===
-  num_threads: null       # CPU 线程数（null=自动）
-  compute_auc: true       # 关闭 AUC 加速训练（最后再开启验证）
+  batch_size: 128
+  compute_auc: true
+  converge_threshold: 0.005
+  epochs: 10000  # 最大轮数，设置足够大，依靠收敛检测自动停止
+  estimated_rounds: 200  # 预估收敛轮数，用于学习率调度器
+  eval_batch_size: 128
+  eval_interval: 1  # 每轮都评估，方便画收敛曲线
+  gamma: 0.2
+  learning_rate: 0.01
+  milestones:
+  - 60
+  - 120
+  - 160
+  momentum: 0.9
+  num_threads: null
+  num_workers: 4
+  optimizer: sgd
+  prefetch_factor: 2
+  scheduler: cosine
+  use_amp: true
+  use_augmentation: true
+  weight_decay: 0.0005

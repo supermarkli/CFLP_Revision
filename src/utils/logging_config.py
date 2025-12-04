@@ -20,8 +20,12 @@ def setup_logging(create_file=False):
     if not any(isinstance(h, logging.StreamHandler) for h in logger.handlers):
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.INFO)
+        # console_formatter = logging.Formatter(
+        #     '%(asctime)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s',
+        #     datefmt='%Y-%m-%d %H:%M:%S'
+        # )
         console_formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s',
+            '%(asctime)s - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
         console_handler.setFormatter(console_formatter)

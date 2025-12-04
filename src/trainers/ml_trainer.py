@@ -45,9 +45,11 @@ class MLTrainer(BaseTrainer):
         if x_test.ndim > 2:
             x_test = x_test.reshape(x_test.shape[0], -1)
         
+        logger.info(f"开始评估模型，测试集大小: {len(y_test)}")
         with torch.inference_mode():  # 比 no_grad 更快
             y_proba = self.model(x_test).cpu().numpy()
             y_pred = np.argmax(y_proba, axis=1)
+        logger.info("模型预测完成，开始计算指标")
         try:
             loss = log_loss(y_test, y_proba)
         except Exception:

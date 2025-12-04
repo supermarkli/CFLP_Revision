@@ -34,6 +34,12 @@ class AugmentedDataset(Dataset):
         return x, y
 
 class CentralizedTrainer(BaseTrainer):
+    def __init__(self, model, config):
+        super().__init__(model, config)
+        self.convergence_round = 0  # 收敛轮数
+        self.best_auc = None
+        self.best_loss = None
+        
     def train(self, train_data: SimpleNamespace, test_data: SimpleNamespace) -> None:
         """实现集中式训练流程"""
         # 检测是否使用 CUDA
@@ -69,7 +75,7 @@ class CentralizedTrainer(BaseTrainer):
                 transforms.RandomHorizontalFlip(),
             ])
             train_dataset = AugmentedDataset(x_train, y_train, transform=train_transform)
-            logger.info("数据增强已启用: RandomCrop(32, padding=4) + RandomHorizontalFlip")
+            logger.info("数据增强已启用")
         else:
             train_dataset = TensorDataset(x_train, y_train)
             
@@ -100,16 +106,18 @@ class CentralizedTrainer(BaseTrainer):
             logger.info(f"优化器: Adam (lr={lr}, weight_decay={weight_decay})")
         
         criterion = torch.nn.CrossEntropyLoss()
-        epochs = self.config['training']['epochs']
+        max_rounds = self.config['training']['epochs']  # 统一称为 rounds
         threshold = self.config['training'].get('converge_threshold', 0.001)
         eval_interval = self.config['training'].get('eval_interval', 1)
         
-        # 学习率调度器
+        # 学习率调度器 - 使用预估的收敛轮数（而非最大轮数）
         scheduler_type = self.config['training'].get('scheduler', None)
         scheduler = None
+        # 预估收敛轮数用于调度器，避免 T_max 过大导致学习率下降太慢
+        estimated_rounds = self.config['training'].get('estimated_rounds', 200)
         if scheduler_type == 'cosine':
-            scheduler = CosineAnnealingLR(optimizer, T_max=epochs)
-            logger.info(f"学习率调度: CosineAnnealingLR (T_max={epochs})")
+            scheduler = CosineAnnealingLR(optimizer, T_max=estimated_rounds)
+            logger.info(f"学习率调度: CosineAnnealingLR (T_max={estimated_rounds})")
         elif scheduler_type == 'multistep':
             milestones = self.config['training'].get('milestones', [60, 120, 160])
             gamma = self.config['training'].get('gamma', 0.2)
@@ -123,7 +131,7 @@ class CentralizedTrainer(BaseTrainer):
         self.model.train()
         acc_history = []
         
-        for epoch in range(epochs):
+        for r in range(max_rounds):
             total_loss = 0
             for batch_x, batch_y in train_loader:
                 # non_blocking 仅在使用 pin_memory 时有效
@@ -150,29 +158,37 @@ class CentralizedTrainer(BaseTrainer):
                 scheduler.step()
 
             # 按间隔评估（减少评估开销）
-            if (epoch + 1) % eval_interval == 0 or epoch == epochs - 1:
+            if (r + 1) % eval_interval == 0 or r == max_rounds - 1:
                 loss, acc, auc = self.evaluate(test_data)
-                lr_info = f" LR: {current_lr:.6f}" if scheduler else ""
-                logger.info(f"[Centralized][Epoch {epoch+1}/{epochs}] 准确率: {format(int(acc * 1000) / 1000, '.3f')}  AUC: {format(int(auc * 1000) / 1000, '.3f') if auc is not None else '计算失败'} 损失: {format(int(loss * 1000) / 1000, '.3f')}{lr_info}")
+                # 统一日志格式，方便后续解析画收敛曲线
+                auc_str = format(int(auc * 1000) / 1000, '.3f') if auc is not None else 'N/A'
+                logger.info(f"[Centralized][Round {r+1}] 准确率: {format(int(acc * 1000) / 1000, '.3f')}, AUC: {auc_str}, 损失: {format(int(loss * 1000) / 1000, '.3f')}")
                 acc_history.append(acc)
                 
                 # 保存最佳模型
                 if acc > self.best_acc:
                     self.best_acc = acc
                     self.best_auc = auc
+                    self.best_loss = loss
                     self.best_state_dict = self.model.state_dict().copy()
                 
                 # 收敛检测
                 if self._check_convergence(acc_history, threshold):
-                    logger.info(f"[Centralized] 收敛检测：最近准确率波动未超过阈值({threshold})，提前停止训练。")
+                    self.convergence_round = r + 1
+                    logger.info(f"[Centralized] 收敛检测：在第 {self.convergence_round} 轮收敛，最近准确率波动未超过阈值({threshold})")
                     break
             
             self.model.train()  # 确保评估后恢复训练模式
+        else:
+            # 如果达到最大轮数仍未收敛
+            self.convergence_round = max_rounds
+            logger.info(f"[Centralized] 达到最大轮数 {max_rounds}，训练结束")
                 
         # 恢复最佳模型
-        self.save_best_model() 
+        self.save_best_model()
+        logger.info(f"收敛轮数: {self.convergence_round}")
         logger.info(f"最终准确率: {format(int(self.best_acc * 1000) / 1000, '.3f')}")
-        logger.info(f"最终AUC: {format(int(self.best_auc * 1000) / 1000, '.3f') if self.best_auc is not None else '计算失败'}")
+        logger.info(f"最终AUC: {format(int(self.best_auc * 1000) / 1000, '.3f') if self.best_auc is not None else 'N/A'}")
 
     def evaluate(self, test_data: SimpleNamespace) -> tuple:
         """统一的模型评估方法，返回损失、准确率、AUC"""
@@ -235,7 +251,9 @@ class CentralizedTrainer(BaseTrainer):
             from sklearn.metrics import roc_auc_score
             try:
                 y_true = torch.cat(all_labels).numpy()
-                y_proba = torch.cat(all_probs).numpy()
+                y_proba = torch.cat(all_probs).numpy().astype(np.float64)  # 转为 float64 提高精度
+                # 修复 AMP 导致的概率舍入误差：重新归一化确保每行和为 1
+                y_proba = y_proba / y_proba.sum(axis=1, keepdims=True)
                 n_classes = y_proba.shape[1]
                 unique_classes = np.unique(y_true)
                 if len(unique_classes) == n_classes:

@@ -14,7 +14,7 @@ import shutil
 DOWNLOAD_DIR = os.path.join(PROJECT_ROOT, 'data', 'mnist_raw')
 OUTPUT_NPZ = os.path.join(PROJECT_ROOT, 'data', 'mnist_raw', 'mnist_data.npz')
 NORMALIZE = True  
-TEST_SIZE = 0.2
+LOCAL_VAL_SIZE = 0.1  # 客户端本地验证集比例
 
 logger = get_logger()
 
@@ -48,7 +48,12 @@ def save_npz(X_train, y_train, X_test, y_test, output_path):
     logger.info(f"已保存训练、测试集到: {output_path}")
 
 def split_data_for_federation(X, y, num_clients=3):
-    """将数据集随机分为num_clients份 (IID),每个客户端再划分训练集和测试集"""
+    """
+    将官方训练集随机分为num_clients份 (IID)。
+    每个客户端再划分本地训练集和本地验证集。
+    
+    注意：这里只使用官方训练集，官方测试集作为全局测试集独立保存。
+    """
     logger.info(f"开始为 {num_clients} 个客户端分割 IID 数据集...")
     n_samples = len(X)
     indices = np.arange(n_samples)
@@ -65,22 +70,22 @@ def split_data_for_federation(X, y, num_clients=3):
         X_part = X[idx]
         y_part = y[idx]
         
-        # 划分训练集和测试集
-        X_train, X_test, y_train, y_test = train_test_split(
-            X_part, y_part, test_size=TEST_SIZE, random_state=42
+        # 划分本地训练集和本地验证集
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_part, y_part, test_size=LOCAL_VAL_SIZE, random_state=42
         )
         
-        # 保存训练集
+        # 保存本地训练集
         train_path = os.path.join(client_dir, 'mnist_train.npz')
         np.savez_compressed(train_path, X_train=X_train, y_train=y_train)
         
-        # 保存测试集
-        test_path = os.path.join(client_dir, 'mnist_test.npz')
-        np.savez_compressed(test_path, X_test=X_test, y_test=y_test)
+        # 保存本地验证集（用于客户端本地验证，非全局评估）
+        val_path = os.path.join(client_dir, 'mnist_val.npz')
+        np.savez_compressed(val_path, X_val=X_val, y_val=y_val)
         
         logger.info(f"客户端{client_id} (IID) 数据已保存:")
-        logger.info(f"  - 训练集: {train_path}, 样本数: {len(X_train)}")
-        logger.info(f"  - 测试集: {test_path}, 样本数: {len(X_test)}")
+        logger.info(f"  - 本地训练集: {train_path}, 样本数: {len(X_train)}")
+        logger.info(f"  - 本地验证集: {val_path}, 样本数: {len(X_val)}")
     
     logger.info(f"为 {num_clients} 个客户端分割 IID 数据集完成。")
 
@@ -88,9 +93,11 @@ def split_data_non_iid_label_skew(X, y, num_clients=3, label_map=None):
     """
     根据标签倾斜 (Label Skew) 的方式为客户端分割 Non-IID 数据集。
     
+    注意：这里只使用官方训练集，官方测试集作为全局测试集独立保存。
+    
     Args:
-        X (np.array): 特征数据。
-        y (np.array): 标签数据。
+        X (np.array): 特征数据（官方训练集）。
+        y (np.array): 标签数据（官方训练集）。
         num_clients (int): 客户端数量。
         label_map (dict, optional): 指定每个客户端分配的标签。默认为None,
                                     如果为None, 则使用预设的分配规则。
@@ -119,33 +126,35 @@ def split_data_non_iid_label_skew(X, y, num_clients=3, label_map=None):
             logger.warning(f"客户端 {client_id} 没有分配到任何数据，标签为 {labels}")
             continue
 
-        # 划分训练集和测试集
-        X_train, X_test, y_train, y_test = train_test_split(
-            X_part, y_part, test_size=TEST_SIZE, random_state=42, stratify=y_part
+        # 划分本地训练集和本地验证集
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_part, y_part, test_size=LOCAL_VAL_SIZE, random_state=42, stratify=y_part
         )
 
-        # 保存训练集
+        # 保存本地训练集
         train_path = os.path.join(client_dir, 'mnist_train_noniid_label_skew.npz')
         np.savez_compressed(train_path, X_train=X_train, y_train=y_train)
 
-        # 保存测试集
-        test_path = os.path.join(client_dir, 'mnist_test_noniid_label_skew.npz')
-        np.savez_compressed(test_path, X_test=X_test, y_test=y_test)
+        # 保存本地验证集
+        val_path = os.path.join(client_dir, 'mnist_val_noniid_label_skew.npz')
+        np.savez_compressed(val_path, X_val=X_val, y_val=y_val)
 
-        logger.info(f"客户端{client_id} (Non-IID) 数据已保存 (标签: {labels}):")
-        logger.info(f"  - 训练集: {train_path}, 样本数: {len(X_train)}")
-        logger.info(f"  - 测试集: {test_path}, 样本数: {len(X_test)}")
+        logger.info(f"客户端{client_id} (Non-IID, Label Skew) 数据已保存 (标签: {labels}):")
+        logger.info(f"  - 本地训练集: {train_path}, 样本数: {len(X_train)}")
+        logger.info(f"  - 本地验证集: {val_path}, 样本数: {len(X_val)}")
 
-    logger.info(f"为 {num_clients} 个客户端分割 Non-IID 数据集完成。")
+    logger.info(f"为 {num_clients} 个客户端分割 Non-IID (Label Skew) 数据集完成。")
 
 
 def split_data_non_iid_quantity_skew(X, y, num_clients=3, proportions=None):
     """
     根据数量倾斜 (Quantity Skew) 的方式为客户端分割 Non-IID 数据集。
+    
+    注意：这里只使用官方训练集，官方测试集作为全局测试集独立保存。
 
     Args:
-        X (np.array): 特征数据。
-        y (np.array): 标签数据。
+        X (np.array): 特征数据（官方训练集）。
+        y (np.array): 标签数据（官方训练集）。
         num_clients (int): 客户端数量。
         proportions (list, optional): 指定每个客户端的数据量比例。默认为None,
                                       如果为None, 则使用预设的分配规则。
@@ -178,21 +187,121 @@ def split_data_non_iid_quantity_skew(X, y, num_clients=3, proportions=None):
 
         X_part, y_part = X[idx], y[idx]
 
-        X_train, X_test, y_train, y_test = train_test_split(
-            X_part, y_part, test_size=TEST_SIZE, random_state=42
+        # 划分本地训练集和本地验证集
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_part, y_part, test_size=LOCAL_VAL_SIZE, random_state=42
         )
 
         train_path = os.path.join(client_dir, 'mnist_train_noniid_quantity_skew.npz')
         np.savez_compressed(train_path, X_train=X_train, y_train=y_train)
 
-        test_path = os.path.join(client_dir, 'mnist_test_noniid_quantity_skew.npz')
-        np.savez_compressed(test_path, X_test=X_test, y_test=y_test)
+        val_path = os.path.join(client_dir, 'mnist_val_noniid_quantity_skew.npz')
+        np.savez_compressed(val_path, X_val=X_val, y_val=y_val)
 
         logger.info(f"客户端{client_id} (Non-IID, Quantity Skew) 数据已保存 (比例: {proportions[i]*100:.0f}%):")
-        logger.info(f"  - 训练集: {train_path}, 样本数: {len(X_train)}")
-        logger.info(f"  - 测试集: {test_path}, 样本数: {len(X_test)}")
+        logger.info(f"  - 本地训练集: {train_path}, 样本数: {len(X_train)}")
+        logger.info(f"  - 本地验证集: {val_path}, 样本数: {len(X_val)}")
 
     logger.info(f"为 {num_clients} 个客户端分割 Non-IID (Quantity Skew) 数据集完成。")
+
+
+def split_data_non_iid_dirichlet(X, y, num_clients=3, alpha=0.5, num_classes=10):
+    """
+    使用 Dirichlet 分布为客户端分割 Non-IID 数据集。
+    
+    原理：每个客户端拥有所有类别的数据，但是比例不同。
+    例如：Client 1 有很多"0"，但也有少量的"1"和"2"。
+    
+    注意：这里只使用官方训练集，官方测试集作为全局测试集独立保存。
+    
+    Args:
+        X (np.array): 特征数据（官方训练集）。
+        y (np.array): 标签数据（官方训练集）。
+        num_clients (int): 客户端数量。
+        alpha (float): Dirichlet 分布参数，控制数据倾斜程度。
+                      - α 越小（如 0.1），数据越倾斜（Non-IID 程度越高）
+                      - α 越大（如 1.0），数据越均匀（接近 IID）
+                      - 默认 0.5（中等偏斜）
+        num_classes (int): 数据集类别数（MNIST 为 10）。
+    """
+    logger.info(f"开始为 {num_clients} 个客户端分割 Non-IID (Dirichlet, α={alpha}) 数据集...")
+    base_data_dir = os.path.join(PROJECT_ROOT, 'data')
+    
+    # 为每个类别生成客户端分配比例
+    # 使用 Dirichlet 分布：对每个类别，生成 num_clients 个比例值，和为1
+    np.random.seed(42)  # 确保可复现
+    class_distributions = np.random.dirichlet([alpha] * num_clients, size=num_classes)
+    # class_distributions shape: [num_classes, num_clients]
+    # class_distributions[i, j] 表示类别 i 分配给客户端 j 的比例
+    
+    # 按类别组织数据
+    class_indices = {i: [] for i in range(num_classes)}
+    for idx, label in enumerate(y):
+        class_indices[label].append(idx)
+    
+    # 为每个客户端分配数据
+    client_data_indices = {i: [] for i in range(num_clients)}
+    
+    for class_id in range(num_classes):
+        class_data_indices = np.array(class_indices[class_id])
+        n_class_samples = len(class_data_indices)
+        
+        if n_class_samples == 0:
+            continue
+        
+        # 根据 Dirichlet 分布的比例分配该类别的数据
+        proportions = class_distributions[class_id]  # shape: [num_clients]
+        
+        # 计算每个客户端应该分配的数量
+        client_counts = (proportions * n_class_samples).astype(int)
+        # 处理舍入误差：将剩余样本分配给最后一个客户端
+        client_counts[-1] = n_class_samples - client_counts[:-1].sum()
+        
+        # 随机打乱该类别的数据索引
+        np.random.shuffle(class_data_indices)
+        
+        # 按比例分配给各个客户端
+        start_idx = 0
+        for client_id in range(num_clients):
+            end_idx = start_idx + client_counts[client_id]
+            client_data_indices[client_id].extend(class_data_indices[start_idx:end_idx])
+            start_idx = end_idx
+    
+    # 保存各客户端数据
+    for client_id in range(num_clients):
+        client_idx = np.array(client_data_indices[client_id])
+        
+        if len(client_idx) == 0:
+            logger.warning(f"客户端 {client_id + 1} 没有分配到任何数据")
+            continue
+        
+        client_dir = os.path.join(base_data_dir, f'client{client_id + 1}')
+        os.makedirs(client_dir, exist_ok=True)
+        
+        X_part = X[client_idx]
+        y_part = y[client_idx]
+        
+        # 划分本地训练集和本地验证集
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_part, y_part, test_size=LOCAL_VAL_SIZE, random_state=42, stratify=y_part
+        )
+        
+        # 统计类别分布
+        unique_labels, label_counts = np.unique(y_train, return_counts=True)
+        label_distribution = {int(label): int(count) for label, count in zip(unique_labels, label_counts)}
+        
+        train_path = os.path.join(client_dir, 'mnist_train_noniid_dirichlet.npz')
+        np.savez_compressed(train_path, X_train=X_train, y_train=y_train)
+        
+        val_path = os.path.join(client_dir, 'mnist_val_noniid_dirichlet.npz')
+        np.savez_compressed(val_path, X_val=X_val, y_val=y_val)
+        
+        logger.info(f"客户端{client_id + 1} (Non-IID, Dirichlet α={alpha}) 数据已保存:")
+        logger.info(f"  - 本地训练集: {train_path}, 样本数: {len(X_train)}")
+        logger.info(f"  - 本地验证集: {val_path}, 样本数: {len(X_val)}")
+        logger.info(f"  - 类别分布: {label_distribution}")
+    
+    logger.info(f"为 {num_clients} 个客户端分割 Non-IID (Dirichlet) 数据集完成。")
 
 
 def cleanup_raw_data(directory):
@@ -209,34 +318,46 @@ def generate_mnist_data():
     logger.info("开始加载MNIST数据集...")
     X_train, y_train, X_test, y_test = load_mnist_data(DOWNLOAD_DIR, normalize=NORMALIZE)
     
-    # 保存完整的训练集和测试集
+    # ========== 保存完整数据集 ==========
     complete_data_dir = os.path.join(PROJECT_ROOT, 'data', 'complete')
     os.makedirs(complete_data_dir, exist_ok=True)
     
-    # 保存完整训练集
+    # 保存官方训练集（用于集中式训练）
     train_path = os.path.join(complete_data_dir, 'mnist_train.npz')
     np.savez_compressed(train_path, X_train=X_train, y_train=y_train)
-    logger.info(f"完整训练集已保存: {train_path}, 样本数: {len(X_train)}")
+    logger.info(f"官方训练集已保存: {train_path}, 样本数: {len(X_train)}")
     
-    # 保存完整测试集
+    # 保存官方测试集（用于全局评估）
     test_path = os.path.join(complete_data_dir, 'mnist_test.npz')
     np.savez_compressed(test_path, X_test=X_test, y_test=y_test)
-    logger.info(f"完整测试集已保存: {test_path}, 样本数: {len(X_test)}")
+    logger.info(f"官方测试集已保存（全局测试集）: {test_path}, 样本数: {len(X_test)}")
     
-    # 合并训练集和测试集用于联邦学习划分
-    X = np.concatenate([X_train, X_test])
-    y = np.concatenate([y_train, y_test])
+    # ========== 为联邦学习划分数据（仅使用官方训练集） ==========
+    logger.info("=" * 50)
+    logger.info("开始为联邦学习划分客户端数据（仅使用官方训练集）...")
+    logger.info("官方测试集将作为全局测试集用于评估全局模型性能")
+    logger.info("=" * 50)
     
     # 1. 为联邦学习划分 IID 数据
-    split_data_for_federation(X, y, num_clients=3)
+    split_data_for_federation(X_train, y_train, num_clients=3)
     
     # 2. 为联邦学习划分 Non-IID (Label Skew) 数据
-    split_data_non_iid_label_skew(X, y, num_clients=3)
+    split_data_non_iid_label_skew(X_train, y_train, num_clients=3)
     
     # 3. 为联邦学习划分 Non-IID (Quantity Skew) 数据
-    split_data_non_iid_quantity_skew(X, y, num_clients=3)
+    split_data_non_iid_quantity_skew(X_train, y_train, num_clients=3)
+    
+    # 4. 为联邦学习划分 Non-IID (Dirichlet) 数据
+    split_data_non_iid_dirichlet(X_train, y_train, num_clients=3, alpha=0.5, num_classes=10)
 
     logger.info("MNIST数据处理完成！")
+    logger.info("=" * 50)
+    logger.info("数据结构说明:")
+    logger.info("  - data/complete/mnist_test.npz: 全局测试集（用于评估全局模型）")
+    logger.info("  - data/complete/mnist_train.npz: 完整训练集（用于集中式训练）")
+    logger.info("  - data/clientX/mnist_train*.npz: 客户端本地训练集")
+    logger.info("  - data/clientX/mnist_val*.npz: 客户端本地验证集")
+    logger.info("=" * 50)
 
 if __name__ == '__main__':
     logger.info("开始执行MNIST数据处理脚本...")
@@ -245,4 +366,4 @@ if __name__ == '__main__':
     logger.info("开始清理原始下载文件...")
     cleanup_raw_data(DOWNLOAD_DIR)
     
-    logger.info("脚本执行完毕。") 
+    logger.info("脚本执行完毕。")

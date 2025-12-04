@@ -1,0 +1,374 @@
+{
+    "('Centralized', 'CNN', 'N/A', 'mnist')": [
+        {
+            "mode": "Centralized",
+            "model": "CNN",
+            "dist": null,
+            "acc": 0.989,
+            "auc": 0.999,
+            "time_cost": 13.54,
+            "convergence_round": 5,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "CNN",
+            "dist": null,
+            "acc": 0.987,
+            "auc": 0.999,
+            "time_cost": 11.23,
+            "convergence_round": 4,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "CNN",
+            "dist": null,
+            "acc": 0.99,
+            "auc": 0.999,
+            "time_cost": 16.7,
+            "convergence_round": 6,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "CNN",
+            "dist": null,
+            "acc": 0.988,
+            "auc": 0.999,
+            "time_cost": 13.8,
+            "convergence_round": 5,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "CNN",
+            "dist": null,
+            "acc": 0.987,
+            "auc": 0.999,
+            "time_cost": 13.5,
+            "convergence_round": 5,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        }
+    ],
+    "('Centralized', 'ResNet18', 'N/A', 'cifar10')": [
+        {
+            "mode": "Centralized",
+            "model": "ResNet18",
+            "dist": null,
+            "acc": 0.907,
+            "auc": 0.995,
+            "time_cost": 325.37,
+            "convergence_round": 43,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "ResNet18",
+            "dist": null,
+            "acc": 0.899,
+            "auc": 0.994,
+            "time_cost": 205.67,
+            "convergence_round": 27,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "ResNet18",
+            "dist": null,
+            "acc": 0.909,
+            "auc": 0.994,
+            "time_cost": 335.42,
+            "convergence_round": 43,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "ResNet18",
+            "dist": null,
+            "acc": 0.911,
+            "auc": 0.995,
+            "time_cost": 348.8,
+            "convergence_round": 46,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        },
+        {
+            "mode": "Centralized",
+            "model": "ResNet18",
+            "dist": null,
+            "acc": 0.903,
+            "auc": 0.994,
+            "time_cost": 243.46,
+            "convergence_round": 32,
+            "communication_volume": null,
+            "final_acc_std": null,
+            "local_global_gap": null
+        }
+    ],
+    "('Federated', 'CNN', 'iid', 'mnist')": [
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "iid",
+            "acc": 0.992,
+            "auc": 0.999,
+            "time_cost": 69.01,
+            "convergence_round": 6,
+            "communication_volume": 83812679.68,
+            "final_acc_std": 0.03,
+            "local_global_gap": 0.003
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "iid",
+            "acc": 0.993,
+            "auc": 0.999,
+            "time_cost": 57.7,
+            "convergence_round": 5,
+            "communication_volume": 69845647.36,
+            "final_acc_std": 0.026,
+            "local_global_gap": 0.004
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "iid",
+            "acc": 0.993,
+            "auc": 0.999,
+            "time_cost": 58.24,
+            "convergence_round": 5,
+            "communication_volume": 69845647.36,
+            "final_acc_std": 0.006,
+            "local_global_gap": 0.003
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "iid",
+            "acc": 0.993,
+            "auc": 0.999,
+            "time_cost": 55.74,
+            "convergence_round": 5,
+            "communication_volume": 69845647.36,
+            "final_acc_std": 0.016,
+            "local_global_gap": 0.006
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "iid",
+            "acc": 0.993,
+            "auc": 0.999,
+            "time_cost": 67.92,
+            "convergence_round": 6,
+            "communication_volume": 83812679.68,
+            "final_acc_std": 0.103,
+            "local_global_gap": 0.005
+        }
+    ],
+    "('Federated', 'CNN', 'noniid_dirichlet', 'mnist')": [
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "noniid_dirichlet",
+            "acc": 0.988,
+            "auc": 0.999,
+            "time_cost": 72.04,
+            "convergence_round": 6,
+            "communication_volume": 83812679.68,
+            "final_acc_std": 0.18,
+            "local_global_gap": 0.036
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "noniid_dirichlet",
+            "acc": 0.99,
+            "auc": 0.999,
+            "time_cost": 81.45,
+            "convergence_round": 7,
+            "communication_volume": 97779712.0,
+            "final_acc_std": 0.288,
+            "local_global_gap": 0.029
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "noniid_dirichlet",
+            "acc": 0.988,
+            "auc": 0.999,
+            "time_cost": 81.49,
+            "convergence_round": 7,
+            "communication_volume": 97779712.0,
+            "final_acc_std": 0.281,
+            "local_global_gap": 0.031
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "noniid_dirichlet",
+            "acc": 0.99,
+            "auc": 0.999,
+            "time_cost": 69.84,
+            "convergence_round": 6,
+            "communication_volume": 83812679.68,
+            "final_acc_std": 0.172,
+            "local_global_gap": 0.02
+        },
+        {
+            "mode": "Federated",
+            "model": "CNN",
+            "dist": "noniid_dirichlet",
+            "acc": 0.991,
+            "auc": 0.999,
+            "time_cost": 72.22,
+            "convergence_round": 6,
+            "communication_volume": 83812679.68,
+            "final_acc_std": 0.04,
+            "local_global_gap": 0.037
+        }
+    ],
+    "('Federated', 'ResNet18', 'iid', 'cifar10')": [
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "iid",
+            "acc": 0.92,
+            "auc": 0.995,
+            "time_cost": 556.81,
+            "convergence_round": 17,
+            "communication_volume": 4563402752.0,
+            "final_acc_std": 0.007,
+            "local_global_gap": 0.035
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "iid",
+            "acc": 0.923,
+            "auc": 0.996,
+            "time_cost": 599.86,
+            "convergence_round": 18,
+            "communication_volume": 4831838208.0,
+            "final_acc_std": 0.006,
+            "local_global_gap": 0.032
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "iid",
+            "acc": 0.919,
+            "auc": 0.995,
+            "time_cost": 534.25,
+            "convergence_round": 16,
+            "communication_volume": 4294967296.0,
+            "final_acc_std": 0.008,
+            "local_global_gap": 0.047
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "iid",
+            "acc": 0.915,
+            "auc": 0.995,
+            "time_cost": 469.12,
+            "convergence_round": 14,
+            "communication_volume": 3758096384.0,
+            "final_acc_std": 0.014,
+            "local_global_gap": 0.033
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "iid",
+            "acc": 0.919,
+            "auc": 0.995,
+            "time_cost": 573.82,
+            "convergence_round": 17,
+            "communication_volume": 4563402752.0,
+            "final_acc_std": 0.006,
+            "local_global_gap": 0.037
+        }
+    ],
+    "('Federated', 'ResNet18', 'noniid_dirichlet', 'cifar10')": [
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "noniid_dirichlet",
+            "acc": 0.893,
+            "auc": 0.994,
+            "time_cost": 959.41,
+            "convergence_round": 29,
+            "communication_volume": 7773890805.76,
+            "final_acc_std": 0.008,
+            "local_global_gap": 0.12
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "noniid_dirichlet",
+            "acc": 0.909,
+            "auc": 0.994,
+            "time_cost": 1827.27,
+            "convergence_round": 55,
+            "communication_volume": 14753212661.76,
+            "final_acc_std": 0.007,
+            "local_global_gap": 0.15
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "noniid_dirichlet",
+            "acc": 0.88,
+            "auc": 0.993,
+            "time_cost": 630.49,
+            "convergence_round": 19,
+            "communication_volume": 5100273664.0,
+            "final_acc_std": 0.013,
+            "local_global_gap": 0.104
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "noniid_dirichlet",
+            "acc": 0.897,
+            "auc": 0.994,
+            "time_cost": 1059.77,
+            "convergence_round": 32,
+            "communication_volume": 8579197173.76,
+            "final_acc_std": 0.009,
+            "local_global_gap": 0.113
+        },
+        {
+            "mode": "Federated",
+            "model": "ResNet18",
+            "dist": "noniid_dirichlet",
+            "acc": 0.906,
+            "auc": 0.995,
+            "time_cost": 1490.47,
+            "convergence_round": 45,
+            "communication_volume": 12068858101.76,
+            "final_acc_std": 0.005,
+            "local_global_gap": 0.153
+        }
+    ]
+}
