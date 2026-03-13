@@ -243,11 +243,11 @@ def plot_single_subplot(ax, data: dict, dataset: str, subplot_label: str,
         song_font: 宋体字体名称
         times_font: Times New Roman 风格字体名称
     """
-    # 配色方案
+    # 配色方案（复古学术风格）
     colors = {
-        'Centralized': '#2E86AB',        # 深蓝色
-        'Federated_IID': '#A23B72',      # 玫红色
-        'Federated_NonIID': '#F18F01'    # 橙色
+        'Centralized': '#44757A',        # 深青色
+        'Federated_IID': '#D44C3C',      # 砖红色
+        'Federated_NonIID': '#452A3D'    # 深紫色
     }
     
     labels = {
@@ -342,11 +342,11 @@ def plot_single_subplot(ax, data: dict, dataset: str, subplot_label: str,
     dataset_name = 'MNIST' if dataset == 'mnist' else 'CIFAR-10'
     subtitle = f'{subplot_label} {dataset_name}'
     
-    # 在底部添加子图标题，使用宋体
-    song_prop = fm.FontProperties(family=song_font, size=16, weight='bold')
+    # 在底部添加子图标题，使用 Times New Roman
+    times_prop = fm.FontProperties(family=times_font, size=16, weight='bold')
     ax.text(0.5, -0.12, subtitle, 
             transform=ax.transAxes,
-            fontproperties=song_prop,
+            fontproperties=times_prop,
             verticalalignment='top',
             horizontalalignment='center')
 
