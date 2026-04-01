@@ -165,8 +165,8 @@ def process_runs_data(runs_data: list[list[tuple[int, float]]],
     for run in runs_data:
         accs = [r[1] for r in run[:min_length]]
         
-        # 在开头添加 Accuracy=0.1 的点
-        accs = [0.1] + accs
+        # 在开头添加 Accuracy=0.1 的点（转换为百分比）
+        accs = [10.0] + [a * 100 for a in accs]
         
         # 如果需要填充到目标长度，用最后一个准确率填充
         if target_length is not None and len(accs) < target_length:
@@ -243,13 +243,25 @@ def plot_single_subplot(ax, data: dict, dataset: str, subplot_label: str,
         song_font: 宋体字体名称
         times_font: Times New Roman 风格字体名称
     """
-    # 配色方案（复古学术风格）
-    colors = {
-        'Centralized': '#44757A',        # 深青色
-        'Federated_IID': '#D44C3C',      # 砖红色
-        'Federated_NonIID': '#452A3D'    # 深紫色
+    # 黑白印刷样式：线型 + 标记区分
+    styles = {
+        'Centralized': {
+            'linestyle': '-',           # 实线
+            'marker': 'o',              # 圆形
+            'color': 'black'
+        },
+        'Federated_IID': {
+            'linestyle': '--',          # 虚线
+            'marker': 's',              # 方形
+            'color': 'black'
+        },
+        'Federated_NonIID': {
+            'linestyle': '-.',          # 点划线
+            'marker': '^',              # 三角形
+            'color': 'black'
+        }
     }
-    
+
     labels = {
         'Centralized': 'Centralized',
         'Federated_IID': 'Federated (IID)',
@@ -285,30 +297,32 @@ def plot_single_subplot(ax, data: dict, dataset: str, subplot_label: str,
         if len(epochs) == 0:
             continue
         
-        color = colors[method]
+        style = styles[method]
         label = labels[method]
-        
-        # 绘制均值线
-        ax.plot(epochs, mean_acc, 
-                color=color, 
-                linewidth=2.5, 
+
+        # 绘制均值线（黑白线型 + 标记）
+        ax.plot(epochs, mean_acc,
+                color=style['color'],
+                linestyle=style['linestyle'],
+                linewidth=2,
                 label=label,
-                marker='o' if is_federated else None,
-                markersize=6 if is_federated else 0,
-                markerfacecolor=color,
-                markeredgecolor='white',
-                markeredgewidth=1)
-        
-        # 绘制阴影误差带
-        ax.fill_between(epochs, 
-                        mean_acc - std_acc, 
+                marker=style['marker'],
+                markersize=5,
+                markerfacecolor='none',
+                markeredgecolor='black',
+                markeredgewidth=1.2,
+                markevery=max(1, len(epochs) // 10))
+
+        # 绘制阴影误差带（灰色半透明）
+        ax.fill_between(epochs,
+                        mean_acc - std_acc,
                         mean_acc + std_acc,
-                        color=color, 
-                        alpha=0.2)
+                        color='gray',
+                        alpha=0.15)
     
     # 设置标签（不设置标题），使用 Times New Roman 风格字体
     ax.set_xlabel('Epoch', fontsize=14, fontweight='bold', fontfamily=times_font)
-    ax.set_ylabel('Accuracy', fontsize=14, fontweight='bold', fontfamily=times_font)
+    ax.set_ylabel('准确率/%', fontsize=14, fontweight='bold', fontfamily=song_font)
     
     # 设置图例，使用 Times New Roman 风格字体
     from matplotlib import font_manager as fm
@@ -322,13 +336,17 @@ def plot_single_subplot(ax, data: dict, dataset: str, subplot_label: str,
     ax.grid(True, linestyle='--', alpha=0.4)
     ax.set_axisbelow(True)
     
-    # 设置Y轴范围
-    ax.set_ylim([0, 1.05])
+    # 设置Y轴范围（百分比）
+    ax.set_ylim([0, 105])
     
     # 美化边框
     for spine in ax.spines.values():
         spine.set_linewidth(1.2)
     
+    # 设置Y轴刻度为百分比格式
+    from matplotlib.ticker import FuncFormatter
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f'{y:.0f}%'))
+
     # 设置坐标轴刻度字体
     ax.tick_params(axis='both', which='major', labelsize=12)
     # 设置刻度标签字体为 Times New Roman 风格
